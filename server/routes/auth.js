@@ -110,4 +110,43 @@ router.post(
   }
 );
 
+// ─── POST /api/auth/reset-admin ───────────────────────────────────────────────
+// One-time use: delete all admins and recreate with new credentials.
+// Requires setupSecret. Remove this route after use.
+router.post(
+  '/reset-admin',
+  [
+    body('username').trim().isLength({ min: 3 }).withMessage('Username min 3 chars'),
+    body('password').isLength({ min: 6 }).withMessage('Password min 6 chars'),
+    body('setupSecret').notEmpty().withMessage('Setup secret required'),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: errors.array()[0].msg });
+    }
+
+    const { username, password, setupSecret } = req.body;
+
+    if (setupSecret !== process.env.ADMIN_SETUP_SECRET) {
+      return res.status(403).json({ message: 'Invalid setup secret' });
+    }
+
+    try {
+      await Admin.deleteMany({});
+      const admin = await Admin.create({ username, password });
+      const token = signToken(admin);
+
+      res.status(201).json({
+        message: 'Admin reset and created successfully',
+        token,
+        admin: { id: admin._id, username: admin.username },
+      });
+    } catch (err) {
+      console.error('[Auth Reset Error]', err);
+      res.status(500).json({ message: 'Server error' });
+    }
+  }
+);
+
 export default router;
