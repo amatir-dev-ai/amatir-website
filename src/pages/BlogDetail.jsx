@@ -208,161 +208,138 @@ export default function BlogDetail() {
       <BlogSEO blog={blog} />
       <style>{PROSE_STYLES}</style>
 
-      {/* Hero / Cover */}
-      <div className="relative">
-        {blog.coverImage?.url ? (
-          <div className="relative h-64 md:h-80 lg:h-[420px] overflow-hidden">
-            <img
-              src={blog.coverImage.url}
-              alt={blog.coverImage.altText || blog.title}
-              className="w-full h-full object-cover"
-            />
-            <div
-              className="absolute inset-0"
-              style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(14,35,73,0.85) 100%)' }}
-            />
-            {/* Breadcrumb */}
-            <nav className="absolute top-8 left-0 right-0 px-4 max-w-4xl mx-auto" aria-label="Breadcrumb">
-              <ol className="flex items-center gap-2 text-xs text-white/70">
-                <li>
-                  <Link to="/" className="hover:text-white transition-colors">
-                    Home
-                  </Link>
-                </li>
-                <li className="text-white/40">/</li>
-                <li>
-                  <Link to="/blogs" className="hover:text-white transition-colors">
-                    Blog
-                  </Link>
-                </li>
-                <li className="text-white/40">/</li>
-                <li className="text-white/60 truncate max-w-[200px]">{blog.title}</li>
-              </ol>
-            </nav>
-            {/* Title overlay */}
-            <div className="absolute bottom-0 left-0 right-0 px-4 pb-8 max-w-4xl mx-auto">
-              <div className="max-w-4xl mx-auto">
-                <h1
-                  className="text-white text-2xl md:text-4xl lg:text-5xl leading-tight"
-                  style={{ fontFamily: 'CentSchbkCyrill BT, serif' }}
-                >
-                  {blog.title}
-                </h1>
+      {/* ── Hero Banner (themed, no image bg) ── */}
+      <div
+        className="pt-24 pb-12 px-4 relative overflow-hidden"
+        style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #1a3a6e 60%, #0e2349 100%)` }}
+      >
+        {/* Decorative circles */}
+        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full opacity-5" style={{ background: ORANGE }} />
+        <div className="absolute -bottom-10 -left-10 w-64 h-64 rounded-full opacity-5" style={{ background: ORANGE }} />
+
+        <div className="max-w-4xl mx-auto relative z-10">
+          {/* Breadcrumb */}
+          <nav className="mb-6" aria-label="Breadcrumb">
+            <ol className="flex items-center gap-2 text-xs text-white/50">
+              <li>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li className="text-white/30">/</li>
+              <li>
+                <Link to="/blogs" className="hover:text-white transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li className="text-white/30">/</li>
+              <li className="text-white/40 truncate max-w-[200px]">{blog.title}</li>
+            </ol>
+          </nav>
+
+          {/* Title */}
+          <h1
+            className="text-white text-3xl md:text-4xl lg:text-5xl leading-tight mb-6"
+            style={{ fontFamily: 'CentSchbkCyrill BT, serif' }}
+          >
+            {blog.title}
+          </h1>
+
+          {/* Author + Date + Meta */}
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex items-center gap-2.5">
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0 border-2 border-white/20"
+                style={{ background: `${ORANGE}cc` }}
+              >
+                {(blog.author?.name || 'A')[0].toUpperCase()}
+              </div>
+              <div>
+                <p className="text-white text-sm font-semibold leading-none">{blog.author?.name || 'Amatir Team'}</p>
+                {publishDate && <p className="text-white/50 text-xs mt-1">{publishDate}</p>}
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="pt-24 pb-10 px-4" style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #2a4a84 100%)` }}>
-            <div className="max-w-4xl mx-auto">
-              <nav className="mb-4" aria-label="Breadcrumb">
-                <ol className="flex items-center gap-2 text-xs text-white/60">
-                  <li>
-                    <Link to="/" className="hover:text-white">
-                      Home
-                    </Link>
-                  </li>
-                  <li className="text-white/30">/</li>
-                  <li>
-                    <Link to="/blogs" className="hover:text-white">
-                      Blog
-                    </Link>
-                  </li>
-                  <li className="text-white/30">/</li>
-                  <li className="text-white/50 truncate max-w-[200px]">{blog.title}</li>
-                </ol>
-              </nav>
-              <h1
-                className="text-white text-3xl md:text-4xl lg:text-5xl leading-tight"
-                style={{ fontFamily: 'CentSchbkCyrill BT, serif' }}
+
+            {(blog.readingTime > 0 || blog.views > 0) && <div className="h-4 w-px bg-white/20 hidden sm:block" />}
+
+            {blog.readingTime > 0 && (
+              <div className="flex items-center gap-1.5 text-xs text-white/60">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                {blog.readingTime} min read
+              </div>
+            )}
+
+            {blog.views > 0 && (
+              <div className="flex items-center gap-1.5 text-xs text-white/60">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                </svg>
+                {blog.views.toLocaleString('en-IN')} views
+              </div>
+            )}
+
+            <div className="ml-auto">
+              <button
+                onClick={() => navigator.clipboard?.writeText(window.location.href).then(() => alert('Link copied!'))}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-white/70 border border-white/20 hover:border-white/50 hover:text-white transition-all"
               >
-                {blog.title}
-              </h1>
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                  />
+                </svg>
+                Share
+              </button>
             </div>
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Article + Sidebar */}
+      {/* ── Cover Image (full width, below hero) ── */}
+      {blog.coverImage?.url && (
+        <div className="bg-[#f8fafc]">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative -mt-1 overflow-hidden rounded-b-2xl shadow-xl">
+              <img
+                src={blog.coverImage.url}
+                alt={blog.coverImage.altText || blog.title}
+                className="w-full object-cover max-h-[520px]"
+                loading="eager"
+              />
+              {/* Subtle bottom fade */}
+              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#f8fafc] to-transparent" />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Article + Sidebar ── */}
       <div className="bg-[#f8fafc] min-h-screen">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
           <div className="flex flex-col lg:flex-row gap-10">
             {/* ── Main Article ── */}
             <article className="flex-1 min-w-0">
-              {/* Meta bar */}
-              <div className="bg-white rounded-2xl border border-[#e8eef6] shadow-sm p-5 mb-6 flex flex-wrap items-center gap-4">
-                {/* Author */}
-                <div className="flex items-center gap-2.5">
-                  <div
-                    className="w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0"
-                    style={{ background: NAVY }}
-                  >
-                    {(blog.author?.name || 'A')[0].toUpperCase()}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#1C3664]">{blog.author?.name || 'Amatir Team'}</p>
-                    {publishDate && <p className="text-xs text-[#94a3b8]">{publishDate}</p>}
-                  </div>
-                </div>
-
-                <div className="h-6 w-px bg-[#e2e8f0] hidden sm:block" />
-
-                {/* Reading time */}
-                {blog.readingTime > 0 && (
-                  <div className="flex items-center gap-1.5 text-xs text-[#64748b]">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    {blog.readingTime} min read
-                  </div>
-                )}
-
-                {/* Views */}
-                {blog.views > 0 && (
-                  <div className="flex items-center gap-1.5 text-xs text-[#64748b]">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                      />
-                    </svg>
-                    {blog.views.toLocaleString('en-IN')} views
-                  </div>
-                )}
-
-                {/* Share */}
-                <div className="ml-auto flex items-center gap-2">
-                  <button
-                    onClick={() =>
-                      navigator.clipboard?.writeText(window.location.href).then(() => alert('Link copied!'))
-                    }
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-[#64748b] border border-[#e2e8f0] hover:border-[#1C3664] hover:text-[#1C3664] transition-all bg-white"
-                  >
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                      />
-                    </svg>
-                    Share
-                  </button>
-                </div>
-              </div>
-
               {/* Excerpt */}
               {blog.excerpt && (
                 <p
@@ -468,8 +445,6 @@ export default function BlogDetail() {
           </div>
         </div>
       </div>
-
-      {/* Related posts mobile (bottom strip) */}
     </>
   );
 }
