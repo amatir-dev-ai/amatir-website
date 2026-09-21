@@ -9,7 +9,6 @@ const INITIAL = {
   slug: '',
   excerpt: '',
   content: '',
-  category: '',
   tags: '',
   status: 'draft',
   featured: false,
@@ -86,7 +85,6 @@ export default function BlogForm() {
           slug: b.slug || '',
           excerpt: b.excerpt || '',
           content: b.content || '',
-          category: b.category || '',
           tags: (b.tags || []).join(', '),
           status: b.status || 'draft',
           featured: b.featured || false,
@@ -540,32 +538,11 @@ export default function BlogForm() {
               </Field>
             </div>
 
-            {/* Category & Tags */}
+            {/* Category & Tags — removed */}
+            {/* Tags only */}
             <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-sm p-5 space-y-4">
-              <h3 className="text-sm font-bold text-[#1C3664] uppercase tracking-wider">Classification</h3>
-              <Field label="Category">
-                <Input
-                  value={form.category}
-                  onChange={(e) => handleChange('category', e.target.value)}
-                  placeholder="e.g. Education, Academics…"
-                  list="category-suggestions"
-                />
-                <datalist id="category-suggestions">
-                  {[
-                    'Education',
-                    'Academics',
-                    'Boarding',
-                    'Life at Amatir',
-                    'Admissions',
-                    'Events',
-                    'News',
-                    'General',
-                  ].map((c) => (
-                    <option key={c} value={c} />
-                  ))}
-                </datalist>
-              </Field>
-              <Field label="Tags" hint="Comma-separated">
+              <h3 className="text-sm font-bold text-[#1C3664] uppercase tracking-wider">Tags</h3>
+              <Field hint="Comma-separated">
                 <Input
                   value={form.tags}
                   onChange={(e) => handleChange('tags', e.target.value)}
