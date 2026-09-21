@@ -182,10 +182,9 @@ export default function BlogForm() {
         : await api.post('/blogs', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 
       setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
 
       if (!isEdit) {
-        navigate(`/dashboard/blogs/edit/${data.blog._id}`, { replace: true });
+        navigate('/dashboard/blogs', { replace: true });
       } else {
         // Update cover preview if returned
         if (data.blog.coverImage?.url) setCoverPreview(data.blog.coverImage.url);
