@@ -1,7 +1,7 @@
 import express from 'express';
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
-import { body, validationResult, param, query } from 'express-validator';
+import { param, query } from 'express-validator';
 import Blog from '../models/Blog.js';
 import { protect } from '../middleware/auth.js';
 
@@ -209,19 +209,16 @@ router.post(
   '/',
   protect,
   upload.single('coverImage'),
-  [
-    body('title').trim().notEmpty().withMessage('Title is required'),
-    body('content').notEmpty().withMessage('Content is required'),
-    body('status').optional().isIn(['draft', 'published']),
-  ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ message: errors.array()[0].msg });
-    }
-
     try {
       const data = JSON.parse(req.body.blogData || '{}');
+
+      if (!data.title || !data.title.trim()) {
+        return res.status(400).json({ message: 'Title is required' });
+      }
+      if (!data.content || data.content.trim() === '' || data.content === '<p></p>') {
+        return res.status(400).json({ message: 'Content is required' });
+      }
 
       // Cover image upload
       let coverImage = { url: '', publicId: '', altText: data.coverImage?.altText || '' };
@@ -229,12 +226,14 @@ router.post(
         const result = await uploadToCloudinary(req.file.buffer, 'amatir_blogs/covers');
         coverImage.url = result.secure_url;
         coverImage.publicId = result.public_id;
+        coverImage.altText = data.coverImage?.altText || '';
       } else if (data.coverImage?.url) {
         coverImage = data.coverImage;
       }
 
       const blog = await Blog.create({
-        title: data.title,
+        title: data.title.trim(),
+        slug: data.slug,
         excerpt: data.excerpt,
         content: data.content,
         coverImage,
@@ -244,6 +243,7 @@ router.post(
         seo: data.seo || {},
         status: data.status || 'draft',
         featured: data.featured || false,
+        ...(data.status === 'published' && { publishedAt: new Date() }),
       });
 
       res.status(201).json({ blog });
