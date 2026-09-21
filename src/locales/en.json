@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "trust": "Initiative by Anant Charitable Trust",
+    "titleStart": "Vidyashri",
+    "titleEnd": "SCHOLARSHIP",
+    "title": "Empowering the<1/> Brightest Daughters of Bharat",
+    "description": "<highlight>A 100% FREE Residential and Day-Boarding Gurukul Program<br/></highlight> blending Modern Education, Indian Values & Lifelong Growth.",
+    "seatsAvailable": "Only 24 Merit-Based Seats",
+    "apply": "Request a Callback",
+    "scholarship": "Vidya श्री Scholarship",
+    "scholarshipDescription": "Scholarship Exam Result Declared – ",
+    "scholarshipLink": "Check Now!",
+    "scholarshipPrize": "Scholarship Exam Results Out! Know Your Result."
+  },
+
+  "scholarshipNotice": {
+    "greeting": "Dear Parents,",
+    "intro": "Greetings from Amatir Kanya Gurukul!",
+    "body": "Please find attached the <0>result PDF</0> of the Vidyashri Scholarship Exam for your information. Based on the first round, the top 25 rank holders have been shortlisted for the second round comprising an interview and document verification. We may invite more students for the second round, if required.",
+    "reporting": "The shortlisted students of Class 11 are requested to report at <1>10:00 AM</1> and those of Class 9 at <2>01:00 PM</2> on <3>31st March 2025</3> at Amatir Kanya Gurukul.",
+    "noteTitle": "Note:",
+    "notes": {
+      "point1": "Parent must accompany their daughter.",
+      "point2": "Kindly bring Government-approved Income Proof Documents, if available, for verification.",
+      "point3": "Clearing the written exam does not guarantee admission. Admission is subject to qualification in the second round.",
+      "point4": "The final list of students qualifying for Vidyashri 100% scholarship will be communicated only to concerned parents."
+    },
+    "closing": "We look forward to welcoming you.",
+    "signature": "Sincerely,",
+    "organization": "Amatir Kanya Gurukul"
+  },
+
+  "InDetail": {
+    "title": "Scholarship Details",
+    "detail": {
+      "seats": "<1>Only 24 Seats</1> for Class 11 (Science Stream)⁠",
+      "financialSupport": "<1>100% Financial Support:</1> Tuition fee, hostel fee, transport fee, books & uniform",
+      "guidance": "Prepare with the <1>PW VIDYAPEETH (Physics Wallah)</1> country’s top IIT-JEE and NEET expert teachers, directly inside our secure campus",
+      "selection": "<1>Selection Criteria:</1> Written Test + Interview + Economically Weaker Background",
+      "examDate": "<1>Scholarship Exam Date:</1> 29 March 2026, 09:30 AM",
+      "venue": "<1>Exam Venue:</1> Amatir Kanya Gurukul, Bachgaon Gamri, Lukhi Road, Kurukshetra, Haryana - 136119",
+      "boarding": "Both Boarding & Day Boarding Daughters"
+    },
+    "whyTitle": "Why This Scholarship?",
+    "whyPoints": {
+      "point1": "Organized & funded by Anant Charitable Trust for meritorious daughters",
+      "point2": "Amatir Kanya Gurukul – where tradition meets modern education",
+      "point3": "Academic excellence with NEET, JEE, NDA & CUET coaching",
+      "point4": "Complete growth ecosystem under one roof"
+    },
+    "scholarhipMeans": "Empowering talented girls from economically disadvantaged families with modern education, traditional values, and India’s best competitive exam preparation at absolutely zero cost. <1>Exclusively for Class 11 (Science Stream) | Only 24 Merit-Based Seats Available!</1>",
+    "whatScholarTittle": "What is the VidyaShri Scholarship?",
+    "whatScholarDesc": "Initiated and funded by the <1>Anant Charitable Trust</1>, this scholarship aims to remove the financial barriers stopping brilliant girls from achieving their dreams. In partnership with <1>Amatir Kanya Gurukul</1> and <1>PW Vidyapeeth (Physics Wallah)</1>, we provide a safe, culturally rooted environment combined with expert academic guidance to ensure your daughter's bright, self-reliant future.",
+    "eligibilityTitle": "<1>What is Included? (100% Free)</1> <span>This is a 100% financial assistance initiative. The scholarship completely covers:</span>",
+    "Points": {
+      "point1": "<1>Full School Tuition Fees:</1> Education specifically for Grade 11 (Science Stream).",
+      "point2": "<1>Hostel & Transport:</1> 24x7 secure boarding and day-boarding facilities for girls.",
+      "point3": "<1>Study Material:</1> All books and uniforms.",
+      "point4": "<1>Competitive Coaching:</1> Free on-campus <1>IIT-JEE, NEET, NDA and CUET</1> preparation."
+    },
+    "pwDesc": "<1>Best Preparation in a Safe Gurukul</1> Through our exclusive \"School Integrated Program\", the trusted experts from <br/><1>PW Vidyapeeth (Physics Wallah)</1> will teach directly inside our secure campus.",
+    "pwPoints":{
+      "point1": "<1>Comprehensive Preparation:</1> Board exam focus seamlessly integrated with a competitive edge.",
+      "point2": "<1>Expert Guidance:</1> Benchmark performance nationally with top-tier educators.",
+      "point3": "<1>Proven Results:</1> Backed by PW Vidyapeeth’s legacy of producing top ranks, including <1>JEE Advanced 2025 AIR 3, 12 and 48</1> and <1>NEET (UG) 2025 AIR 87 and 100.</1>"
+    },
+    "details": {
+      "selection": "<1>Selection Criteria:</1> Written Test + Interview + Economically Weaker Background Verification. ",
+      "examDate": "<1>Scholarship Exam Date:</1> 28 June, 2026",
+      "examTime": "<1>Reporting Time:</1> (Morning) 09:30 AM ",
+      "venue": "<1>Venue:</1> Amatir Kanya Gurukul, Bachgaon Gamri, Lukhi Road, Kurukshetra, Haryana – 136119",
+      "Note": "<1>Note:</1> Parents must accompany their daughters and bring a government-recognized income certificate for verification. Clearing the written test does not guarantee admission; it depends on qualifying the second round of interviews."
+    }
+  }
+}

@@ -1,0 +1,99 @@
+# Query: Orange_Icon_i299iz
+# ContextLines: 1
+
+19 results - 19 files
+
+src\pages\About.jsx:
+  10    orangeIcon:
+  11:     "public/images/Orange_Icon_i299iz.svg",
+  12  
+
+src\pages\Admissions.jsx:
+  14    orangeIcon:
+  15:     "public/images/Orange_Icon_i299iz.svg",
+  16  
+
+src\pages\Boarding.jsx:
+   9    heroBg: "/images/AMATIR_6_kphsdu.jpg",
+  10:   orangeIcon: "public/images/Orange_Icon_i299iz.svg",
+  11  
+
+src\pages\CoCurricular.jsx:
+  11    orangeIcon:
+  12:     "public/images/Orange_Icon_i299iz.svg",
+  13  
+
+src\pages\EssentialInformation.jsx:
+  15    hero: "https://res.cloudinary.com/djq2nvwh9/image/upload/v1755942946/AMATIR_6_dpfwbs.jpg",
+  16:   accent: "public/images/Orange_Icon_i299iz.svg",
+  17  
+
+src\pages\Facilities.jsx:
+  19    orangeIcon:
+  20:     "public/images/Orange_Icon_i299iz.svg",
+  21  
+
+src\pages\Home.jsx:
+  16    heroPoster:  "/images/Screenshot_2025-08-28_234620_eke0em.png",
+  17:   heroIcon:    "public/images/Orange_Icon_i299iz.svg",
+  18  
+
+src\pages\LifeAtAmatir.jsx:
+  28        Icon:
+  29:         "public/images/Orange_Icon_i299iz.svg",
+  30      },
+
+src\pages\PaidPage.jsx:
+  45    heroPoster: "https://res.cloudinary.com/djq2nvwh9/image/upload/v1756405001/Screenshot_2025-08-28_234620_eke0em.png",
+  46:   heroIcon: "public/images/Orange_Icon_i299iz.svg",
+  47  
+
+src\pages\mobile\About.jsx:
+  11    orangeIcon:
+  12:     "public/images/Orange_Icon_i299iz.svg",
+  13  
+
+src\pages\mobile\Academics.jsx:
+  320                  className="w-[60px] h-auto"
+  321:                 src="publicpublic/images/Orange_Icon_i299iz.svg"
+  322                />
+
+src\pages\mobile\Admissions.jsx:
+  14    orangeIcon:
+  15:     "publicpublic/images/Orange_Icon_i299iz.svg",
+  16  
+
+src\pages\mobile\Boarding.jsx:
+   9    heroBg: "/images/AMATIR_6_kphsdu.jpg",
+  10:   orangeIcon: "public/images/Orange_Icon_i299iz.svg",
+  11  
+
+src\pages\mobile\CampusVisit.jsx:
+  14    hero: "https://res.cloudinary.com/djq2nvwh9/image/upload/v1757496404/3_10_xq0avb.jpg",
+  15:   accent: "publicpublic/images/Orange_Icon_i299iz.svg",
+  16    videoThumb: "https://res.cloudinary.com/djq2nvwh9/image/upload/v1755942459/Rectangle_98_qeqks9.jpg",
+
+src\pages\mobile\EssentialInformation.jsx:
+  15    hero: "/images/AMATIR_6_dpfwbs.jpg",
+  16:   accent: "public/images/Orange_Icon_i299iz.svg",
+  17  
+
+src\pages\mobile\Facilities.jsx:
+  18    orangeIcon:
+  19:     "publicpublic/images/Orange_Icon_i299iz.svg",
+  20    fabric:
+
+src\pages\mobile\Home.jsx:
+  15    heroPoster:  "/images/Screenshot_2025-08-28_234620_eke0em.png",
+  16:   heroIcon:    "public/images/Orange_Icon_i299iz.svg",
+  17  
+
+src\pages\mobile\LifeAtAmatir.jsx:
+  17    hero: "https://res.cloudinary.com/djq2nvwh9/image/upload/v1757079426/Life_at_Amatir_Header_khfdft.jpg",
+  18:   orangeIcon: "publicpublic/images/Orange_Icon_i299iz.svg",
+  19  
+
+src\pages\mobile\PaidPage.jsx:
+  46    heroPoster: "https://res.cloudinary.com/djq2nvwh9/image/upload/v1756405001/Screenshot_2025-08-28_234620_eke0em.png",
+  47:   heroIcon: "publicpublic/images/Orange_Icon_i299iz.svg",
+  48  

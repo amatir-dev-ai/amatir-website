@@ -1,0 +1,62 @@
+[
+  {
+    "key": "learning-to-know",
+    "titleTop": "Learning to",
+    "titleBottom": "Know",
+    "body":
+      "Fostering curiosity and a love for learning through a rigorous, value-based education curriculum that promotes exploration, critical thinking, and intellectual growth—preparing students for success in higher education and beyond.",
+        "bullets": [
+      "Innovative Curriculum",
+      "Skill-Based Learning", 
+      "Competitive Exams"
+    ],
+    "img": "/images/059A9916_axtwdh.jpg",
+    "link": "/academics"
+  },
+  {
+    "key": "learning-to-do",
+    "titleTop": "Learning to",
+    "titleBottom": "Do",
+    "body":
+      "Encouraging hands-on skills and creative expression, this pillar empowers students to explore their interests and excel in diverse pursuits.",
+    "bullets": [
+      "Sports",
+      "Elevate Clubs",
+      "Fine Arts",
+      "Performing Arts",
+      "Gastronomy"
+    ],
+    "img": "/images/Learning_to_do_awq0kd.jpg",
+    "link": "/co-curricular"
+  },
+  {
+    "key": "learning-to-live-together",
+    "titleTop": "Learning to Live",
+    "titleBottom": "Together",
+    "body":
+      "Cultivating harmony, collaboration, and a strong sense of community—nurturing lifelong relationships and a spirit of shared responsibility.",
+    "bullets": [
+      "Chetna-Prabha",
+      "Happiness Council",
+      "Pillars of Care : Samrakshika & Samposhini",
+      "Marg Darshini"
+    ],
+    "img": "/images/learning_to_live_togather_c742sy.jpg",
+    "link": "/boarding"
+  },
+  {
+    "key": "learning-to-be",
+    "titleTop": "Learning to",
+    "titleBottom": "Be",
+    "body":
+      "Developing self-awareness, inner balance, and a sense of purpose, this pillar integrates the transformative practices of Atma Dhyan to help students realize their true potential.",
+    "bullets": [
+      "Hawan",
+      "Classical Isha Hatha Yoga",
+      "Inner Engineering",
+      "Sandhya"
+    ],
+    "img": "/images/Learning_to_be_yzbdez.jpg",
+    "link": "/academics#gurukul"
+  }
+]
