@@ -416,7 +416,9 @@ export default function TipTapEditor({ content, onChange }) {
       </div>
 
       {/* ── Editor area ── */}
-      <EditorContent editor={editor} className="tiptap-editor" />
+      <div className="max-h-[390px] overflow-y-auto">
+        <EditorContent editor={editor} className="tiptap-editor" />
+      </div>
 
       {/* ── Footer: word/char count ── */}
       <div className="border-t border-[#e2e8f0] bg-[#f8fafc] px-4 py-1.5 flex items-center justify-end gap-4">

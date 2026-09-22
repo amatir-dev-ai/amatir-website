@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import api from '../lib/api';
 import { cldUrl } from '../lib/cloudinary';
@@ -105,6 +105,7 @@ export default function BlogDetail() {
   const [error, setError] = useState('');
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [copied, setCopied] = useState(false);
+  const crmContainerRef = useRef(null);
 
   useEffect(() => {
     setLoading(true);
@@ -117,16 +118,31 @@ export default function BlogDetail() {
         const fetchedBlog = data.blog;
         setBlog(fetchedBlog);
 
-        // Fetch related blogs: prefer same tag, fallback to latest
+        // Fetch related: tag-filtered + latest, merge deduplicated, exclude current
+        const currentSlug = fetchedBlog?.slug || slug;
         const tag = fetchedBlog?.tags?.[0];
-        const params = new URLSearchParams({ limit: 4 });
-        if (tag) params.set('tag', tag);
-        return api.get(`/blogs?${params}`);
-      })
-      .then(({ data }) => {
-        // Exclude the current blog from related
-        const filtered = (data.blogs || []).filter((b) => b.slug !== slug).slice(0, 3);
-        setRelatedBlogs(filtered);
+        const tagPromise = tag
+          ? api
+              .get(`/blogs?tag=${encodeURIComponent(tag)}&limit=4`)
+              .then((r) => r.data.blogs || [])
+              .catch(() => [])
+          : Promise.resolve([]);
+        const latestPromise = api
+          .get('/blogs?limit=6')
+          .then((r) => r.data.blogs || [])
+          .catch(() => []);
+        return Promise.all([tagPromise, latestPromise]).then(([tagBlogs, latestBlogs]) => {
+          const seen = new Set([currentSlug]);
+          const result = [];
+          for (const b of [...tagBlogs, ...latestBlogs]) {
+            if (!seen.has(b.slug)) {
+              seen.add(b.slug);
+              result.push(b);
+            }
+            if (result.length === 3) break;
+          }
+          setRelatedBlogs(result);
+        });
       })
       .catch((err) => {
         if (err.response?.status === 404) {
@@ -137,6 +153,21 @@ export default function BlogDetail() {
       })
       .finally(() => setLoading(false));
   }, [slug]);
+
+  // CRM iframe — runs once the container div actually mounts (after loading completes)
+  useEffect(() => {
+    if (loading || !blog) return;
+    const container = crmContainerRef.current;
+    if (!container) return;
+    container.innerHTML = '';
+    const iframe = document.createElement('iframe');
+    iframe.id = 'crm-form-17';
+    iframe.src = `https://connect.amatir.org/CRM/forms/public/17?embed=1&landing_url=${encodeURIComponent(window.location.href)}`;
+    iframe.style.width = '100%';
+    iframe.style.height = '400px';
+    iframe.style.border = '0';
+    container.appendChild(iframe);
+  }, [loading, blog]);
 
   // Loading skeleton
   if (loading) {
@@ -344,13 +375,12 @@ export default function BlogDetail() {
                     <p className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest mb-3">Tags</p>
                     <div className="flex flex-wrap gap-2">
                       {blog.tags.map((tag) => (
-                        <Link
+                        <span
                           key={tag}
-                          to={`/blogs?tag=${encodeURIComponent(tag)}`}
-                          className="px-3 py-1.5 rounded-full text-xs font-medium text-[#1C3664] bg-[#f0f4f8] hover:bg-[#1C3664] hover:text-white transition-all"
+                          className="px-3 py-1.5 rounded-full text-xs font-medium text-[#1C3664] bg-[#f0f4f8] transition-all"
                         >
                           #{tag}
-                        </Link>
+                        </span>
                       ))}
                     </div>
                   </div>
@@ -384,24 +414,20 @@ export default function BlogDetail() {
               </div>
 
               <aside className="lg:w-72 xl:w-80 space-y-6 shrink-0">
-                {/* CTA box */}
-                <div
-                  className="rounded-2xl p-6 text-center"
-                  style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #2a4a84 100%)` }}
-                >
-                  <p className="text-white text-lg mb-2" style={{ fontFamily: 'CentSchbkCyrill BT, serif' }}>
-                    Join Amatir Kanya Gurukul
-                  </p>
-                  <p className="text-white/70 text-xs mb-4 leading-relaxed">
-                    Discover a transformative residential education rooted in values and excellence.
-                  </p>
-                  <Link
-                    to="/admissions"
-                    className="inline-block w-full py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
-                    style={{ background: ORANGE }}
+                {/* CRM enquiry form */}
+                <div className="rounded-2xl overflow-hidden border border-[#e8eef6] bg-white shadow-sm">
+                  <div
+                    className="px-5 pt-5 pb-3"
+                    style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #2a4a84 100%)` }}
                   >
-                    Apply Now
-                  </Link>
+                    <p className="text-white text-lg mb-1" style={{ fontFamily: 'CentSchbkCyrill BT, serif' }}>
+                      Enquire Now
+                    </p>
+                    <p className="text-white/60 text-xs leading-relaxed">
+                      Interested in Amatir Kanya Gurukul? We'll get back to you.
+                    </p>
+                  </div>
+                  <div ref={crmContainerRef} id="crm-form-container-17" className="w-full h-full bg-white" />
                 </div>
 
                 {/* Related blogs */}

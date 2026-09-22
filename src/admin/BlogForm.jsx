@@ -71,6 +71,8 @@ export default function BlogForm() {
   const [error, setError] = useState('');
   const [saved, setSaved] = useState(false);
   const [activeTab, setActiveTab] = useState('content'); // content | seo | author
+  // Track if user has manually typed a custom slug — if so, stop auto-generating from title
+  const slugManuallyEdited = useRef(false);
 
   // Fetch existing blog on edit
   useEffect(() => {
@@ -98,18 +100,20 @@ export default function BlogForm() {
           coverImage: b.coverImage || { url: '', publicId: '', altText: '' },
         });
         if (b.coverImage?.url) setCoverPreview(b.coverImage.url);
+        // Mark slug as manually set so title changes don't overwrite it
+        slugManuallyEdited.current = true;
       })
       .catch(() => setError('Failed to load blog post'))
       .finally(() => setFetching(false));
   }, [id, isEdit]);
 
-  // Auto-generate slug from title
+  // Auto-generate slug from title (only if user hasn't manually set a custom slug)
   const handleTitleChange = (e) => {
     const title = e.target.value;
     setForm((prev) => ({
       ...prev,
       title,
-      slug: prev.slug === slugify(prev.title) || prev.slug === '' ? slugify(title) : prev.slug,
+      slug: slugManuallyEdited.current ? prev.slug : slugify(title),
       seo: {
         ...prev.seo,
         metaTitle: prev.seo.metaTitle === prev.title ? title.slice(0, 70) : prev.seo.metaTitle,
@@ -118,6 +122,7 @@ export default function BlogForm() {
   };
 
   const handleChange = (field, value) => {
+    if (field === 'slug') slugManuallyEdited.current = true;
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
