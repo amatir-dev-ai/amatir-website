@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../lib/api';
 import useSEO from '../hooks/useSEO';
+import { cldUrl } from '../lib/cloudinary';
 
 const NAVY = '#1C3664';
 const ORANGE = '#ED6D23';
@@ -25,7 +26,7 @@ function BlogCard({ blog }) {
       <div className="relative overflow-hidden bg-[#f0f4f8] aspect-[16/9]">
         {blog.coverImage?.url ? (
           <img
-            src={blog.coverImage.url}
+            src={cldUrl(blog.coverImage.url, { w: 640, h: 360 })}
             alt={blog.coverImage.altText || blog.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
@@ -70,10 +71,7 @@ function BlogCard({ blog }) {
         {/* Footer */}
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-[#f1f5f9]">
           <div className="flex items-center gap-2">
-            <div>
-              <p className="text-xs font-medium text-[#1C3664] leading-none">{blog.author?.name || 'Amatir Team'}</p>
-              {date && <p className="text-[10px] text-[#94a3b8] mt-0.5">{date}</p>}
-            </div>
+            <div>{date && <p className="text-[10px] text-[#94a3b8] mt-0.5">{date}</p>}</div>
           </div>
           <div className="flex items-center gap-3 text-[#94a3b8]">
             {blog.readingTime > 0 && (
@@ -123,7 +121,7 @@ function FeaturedCard({ blog }) {
       <div className="relative md:w-1/2 bg-[#f0f4f8] aspect-[16/9] md:aspect-auto">
         {blog.coverImage?.url ? (
           <img
-            src={blog.coverImage.url}
+            src={cldUrl(blog.coverImage.url, { w: 900, h: 506 })}
             alt={blog.coverImage.altText || blog.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             loading="eager"
@@ -373,12 +371,14 @@ export default function Blogs() {
           </div>
         )}
 
-        {/* Blog grid */}
+        {/* Blog grid — exclude the featured post so it doesn't appear twice */}
         {!loading && !error && blogs.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogs.map((blog) => (
-              <BlogCard key={blog._id} blog={blog} />
-            ))}
+            {blogs
+              .filter((b) => !featured || b._id !== featured._id)
+              .map((blog) => (
+                <BlogCard key={blog._id} blog={blog} />
+              ))}
           </div>
         )}
 

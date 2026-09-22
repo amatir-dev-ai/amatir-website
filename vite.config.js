@@ -23,16 +23,14 @@ export default defineConfig(({ mode }) => {
 
     server: {
       host: '0.0.0.0',
-      port: Number(env.PORT) || 5173,
+      port: 5173,
       allowedHosts: ['2oq0mxnw84.preview.c37.airoapp.ai'],
       // Proxy /api calls to the Express backend in development
       proxy: {
         '/api': {
-          target: env.VITE_API_URL
-            ? env.VITE_API_URL.replace('/api', '')
-            : 'http://localhost:5000',
+          target: env.VITE_API_PROXY_TARGET || 'https://amatir-website.onrender.com',
           changeOrigin: true,
-          secure: false,
+          secure: true,
         },
       },
     },

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import api from '../lib/api';
+import { cldUrl } from '../lib/cloudinary';
 
 const NAVY = '#1C3664';
 const ORANGE = '#ED6D23';
@@ -12,7 +13,7 @@ function BlogSEO({ blog }) {
 
     const metaTitle = blog.seo?.metaTitle || blog.title;
     const metaDesc = blog.seo?.metaDescription || blog.excerpt || '';
-    const ogImg = blog.seo?.ogImage || blog.coverImage?.url || '';
+    const ogImg = blog.seo?.ogImage || cldUrl(blog.coverImage?.url, { w: 1200 }) || '';
     const canonical = blog.seo?.canonicalUrl || `${window.location.origin}/blogs/${blog.slug}`;
     const keywords = blog.seo?.keywords?.join(', ') || blog.tags?.join(', ') || '';
 
@@ -127,7 +128,7 @@ export default function BlogDetail() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#f8fafc]">
-        <div className="max-w-3xl mx-auto px-4 py-24">
+        <div className="max-w-6xl mx-auto px-4 py-24">
           <div className="animate-pulse space-y-5">
             <div className="h-4 bg-[#e2e8f0] rounded w-1/4" />
             <div className="h-8 bg-[#e2e8f0] rounded w-3/4" />
@@ -210,25 +211,25 @@ export default function BlogDetail() {
 
       {/* ── Hero Banner (themed, no image bg) ── */}
       <div
-        className="pt-24 pb-12 px-4 relative overflow-hidden"
+        className="pt-30 pb-32 px-4 relative overflow-hidden"
         style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #1a3a6e 60%, #0e2349 100%)` }}
       >
         {/* Decorative circles */}
         <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full opacity-5" style={{ background: ORANGE }} />
         <div className="absolute -bottom-10 -left-10 w-64 h-64 rounded-full opacity-5" style={{ background: ORANGE }} />
 
-        <div className="max-w-4xl mx-auto relative z-10">
+        <div className="max-w-6xl mx-auto relative z-10">
           {/* Breadcrumb */}
           <nav className="mb-6" aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-xs text-white/50">
               <li>
-                <Link to="/" className="hover:text-white transition-colors">
+                <Link to="/" className="text-white transition-colors">
                   Home
                 </Link>
               </li>
               <li className="text-white/30">/</li>
               <li>
-                <Link to="/blogs" className="hover:text-white transition-colors">
+                <Link to="/blogs" className="text-white  transition-colors">
                   Blog
                 </Link>
               </li>
@@ -248,53 +249,11 @@ export default function BlogDetail() {
           {/* Author + Date + Meta */}
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2.5">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0 border-2 border-white/20"
-                style={{ background: `${ORANGE}cc` }}
-              >
-                {(blog.author?.name || 'A')[0].toUpperCase()}
-              </div>
               <div>
                 <p className="text-white text-sm font-semibold leading-none">{blog.author?.name || 'Amatir Team'}</p>
                 {publishDate && <p className="text-white/50 text-xs mt-1">{publishDate}</p>}
               </div>
             </div>
-
-            {(blog.readingTime > 0 || blog.views > 0) && <div className="h-4 w-px bg-white/20 hidden sm:block" />}
-
-            {blog.readingTime > 0 && (
-              <div className="flex items-center gap-1.5 text-xs text-white/60">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                {blog.readingTime} min read
-              </div>
-            )}
-
-            {blog.views > 0 && (
-              <div className="flex items-center gap-1.5 text-xs text-white/60">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                  />
-                </svg>
-                {blog.views.toLocaleString('en-IN')} views
-              </div>
-            )}
 
             <div className="ml-auto">
               <button
@@ -318,133 +277,114 @@ export default function BlogDetail() {
 
       {/* ── Cover Image (full width, below hero) ── */}
       {blog.coverImage?.url && (
-        <div className="bg-[#f8fafc]">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative -mt-1 overflow-hidden rounded-b-2xl shadow-xl">
-              <img
-                src={blog.coverImage.url}
-                alt={blog.coverImage.altText || blog.title}
-                className="w-full object-cover max-h-[520px]"
-                loading="eager"
-              />
-              {/* Subtle bottom fade */}
-              <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#f8fafc] to-transparent" />
+        <div className="bg-white -mt-[80px] ">
+          <div className="max-w-6xl mx-auto relative">
+            <div className="flex flex-col lg:flex-row gap-6">
+              {/* ── Main Article ── */}
+              <div className="flex-1 min-w-0 bg-white p-5 rounded-xl blog-content-wrapper border border-[#dce6f0] shadow-[0_4px_24px_rgba(28,54,100,0.08),0_1px_4px_rgba(28,54,100,0.05)]">
+                <div className="relative mb-4">
+                  <img
+                    src={cldUrl(blog.coverImage.url, { w: 1200 })}
+                    alt={blog.coverImage.altText || blog.title}
+                    className="w-full object-cover max-h-[520px] rounded-xl"
+                    loading="eager"
+                  />
+                </div>
+                {/* Excerpt */}
+                {blog.excerpt && (
+                  <p
+                    className="text-lg text-[#374151] leading-relaxed italic border-l-4 pl-5 mb-8 py-1"
+                    style={{ borderColor: ORANGE }}
+                  >
+                    {blog.excerpt}
+                  </p>
+                )}
+
+                {/* Content */}
+                <div className="blog-prose" dangerouslySetInnerHTML={{ __html: blog.content }} />
+
+                {/* Tags */}
+                {blog.tags?.length > 0 && (
+                  <div className="mt-8 bg-white rounded-2xl border border-[#e8eef6] shadow-sm p-5">
+                    <p className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest mb-3">Tags</p>
+                    <div className="flex flex-wrap gap-2">
+                      {blog.tags.map((tag) => (
+                        <Link
+                          key={tag}
+                          to={`/blogs?tag=${encodeURIComponent(tag)}`}
+                          className="px-3 py-1.5 rounded-full text-xs font-medium text-[#1C3664] bg-[#f0f4f8] hover:bg-[#1C3664] hover:text-white transition-all"
+                        >
+                          #{tag}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Author bio */}
+                {blog.author?.bio && (
+                  <div className="mt-6 bg-white rounded-2xl border border-[#e8eef6] shadow-sm p-6 flex items-start gap-4">
+                    <div
+                      className="w-14 h-14 rounded-full flex items-center justify-center text-white text-xl font-bold shrink-0"
+                      style={{ background: NAVY }}
+                    >
+                      {(blog.author.name || 'A')[0].toUpperCase()}
+                    </div>
+                    <div>
+                      <p
+                        className="text-base font-bold text-[#1C3664]"
+                        style={{ fontFamily: 'CentSchbkCyrill BT, serif' }}
+                      >
+                        {blog.author.name}
+                      </p>
+                      <p className="text-sm text-[#64748b] mt-1 leading-relaxed">{blog.author.bio}</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Updated notice */}
+                {updatedDate && updatedDate !== publishDate && (
+                  <p className="mt-4 text-xs text-center text-[#94a3b8]">Last updated: {updatedDate}</p>
+                )}
+              </div>
+
+              <aside className="lg:w-72 xl:w-80 space-y-6 shrink-0">
+                {/* CTA box */}
+                <div
+                  className="rounded-2xl p-6 text-center"
+                  style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #2a4a84 100%)` }}
+                >
+                  <p className="text-white text-lg mb-2" style={{ fontFamily: 'CentSchbkCyrill BT, serif' }}>
+                    Join Amatir Kanya Gurukul
+                  </p>
+                  <p className="text-white/70 text-xs mb-4 leading-relaxed">
+                    Discover a transformative residential education rooted in values and excellence.
+                  </p>
+                  <Link
+                    to="/admissions"
+                    className="inline-block w-full py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                    style={{ background: ORANGE }}
+                  >
+                    Apply Now
+                  </Link>
+                </div>
+              </aside>
+            </div>
+            <div className="my-8">
+              <Link
+                to="/blogs"
+                className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:opacity-80"
+                style={{ color: ORANGE }}
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to all articles
+              </Link>
             </div>
           </div>
         </div>
       )}
-
-      {/* ── Article + Sidebar ── */}
-      <div className="bg-[#f8fafc] min-h-screen">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
-          <div className="flex flex-col lg:flex-row gap-10">
-            {/* ── Main Article ── */}
-            <article className="flex-1 min-w-0">
-              {/* Excerpt */}
-              {blog.excerpt && (
-                <p
-                  className="text-lg text-[#374151] leading-relaxed italic border-l-4 pl-5 mb-8 py-1"
-                  style={{ borderColor: ORANGE }}
-                >
-                  {blog.excerpt}
-                </p>
-              )}
-
-              {/* Content */}
-              <div
-                className="bg-white rounded-2xl border border-[#e8eef6] shadow-sm p-6 md:p-10 blog-prose"
-                dangerouslySetInnerHTML={{ __html: blog.content }}
-              />
-
-              {/* Tags */}
-              {blog.tags?.length > 0 && (
-                <div className="mt-8 bg-white rounded-2xl border border-[#e8eef6] shadow-sm p-5">
-                  <p className="text-xs font-bold text-[#94a3b8] uppercase tracking-widest mb-3">Tags</p>
-                  <div className="flex flex-wrap gap-2">
-                    {blog.tags.map((tag) => (
-                      <Link
-                        key={tag}
-                        to={`/blogs?tag=${encodeURIComponent(tag)}`}
-                        className="px-3 py-1.5 rounded-full text-xs font-medium text-[#1C3664] bg-[#f0f4f8] hover:bg-[#1C3664] hover:text-white transition-all"
-                      >
-                        #{tag}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Author bio */}
-              {blog.author?.bio && (
-                <div className="mt-6 bg-white rounded-2xl border border-[#e8eef6] shadow-sm p-6 flex items-start gap-4">
-                  <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center text-white text-xl font-bold shrink-0"
-                    style={{ background: NAVY }}
-                  >
-                    {(blog.author.name || 'A')[0].toUpperCase()}
-                  </div>
-                  <div>
-                    <p
-                      className="text-base font-bold text-[#1C3664]"
-                      style={{ fontFamily: 'CentSchbkCyrill BT, serif' }}
-                    >
-                      {blog.author.name}
-                    </p>
-                    <p className="text-sm text-[#64748b] mt-1 leading-relaxed">{blog.author.bio}</p>
-                  </div>
-                </div>
-              )}
-
-              {/* Updated notice */}
-              {updatedDate && updatedDate !== publishDate && (
-                <p className="mt-4 text-xs text-center text-[#94a3b8]">Last updated: {updatedDate}</p>
-              )}
-
-              {/* Back link */}
-              <div className="mt-8">
-                <Link
-                  to="/blogs"
-                  className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:opacity-80"
-                  style={{ color: ORANGE }}
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                    />
-                  </svg>
-                  Back to all articles
-                </Link>
-              </div>
-            </article>
-
-            {/* ── Sidebar ── */}
-            <aside className="lg:w-72 xl:w-80 space-y-6 shrink-0">
-              {/* CTA box */}
-              <div
-                className="rounded-2xl p-6 text-center"
-                style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #2a4a84 100%)` }}
-              >
-                <p className="text-white text-lg mb-2" style={{ fontFamily: 'CentSchbkCyrill BT, serif' }}>
-                  Join Amatir Kanya Gurukul
-                </p>
-                <p className="text-white/70 text-xs mb-4 leading-relaxed">
-                  Discover a transformative residential education rooted in values and excellence.
-                </p>
-                <Link
-                  to="/admissions"
-                  className="inline-block w-full py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
-                  style={{ background: ORANGE }}
-                >
-                  Apply Now
-                </Link>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </div>
     </>
   );
 }

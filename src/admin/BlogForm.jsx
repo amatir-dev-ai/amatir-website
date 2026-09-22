@@ -233,7 +233,7 @@ export default function BlogForm() {
               type="button"
               onClick={(e) => handleSubmit(e, 'draft')}
               disabled={loading}
-              className="px-4 py-2 text-sm text-[#1C3664] border border-[#1C3664] rounded-lg hover:bg-[#1C3664]/5 transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-sm text-[#1C3664] border border-[#1C3664] rounded-lg hover:bg-[#1C3664]/5 transition-colors disabled:opacity-50 cursor-pointer"
             >
               Save Draft
             </button>
@@ -241,7 +241,7 @@ export default function BlogForm() {
               type="button"
               onClick={(e) => handleSubmit(e, 'published')}
               disabled={loading}
-              className="flex items-center gap-2 px-5 py-2 text-sm text-white rounded-lg font-semibold transition-all hover:opacity-90 disabled:opacity-50"
+              className="cursor-pointer flex items-center gap-2 px-5 py-2 text-sm text-white rounded-lg font-semibold transition-all hover:opacity-90 disabled:opacity-50"
               style={{ background: 'linear-gradient(135deg, #ED6D23, #f5883f)' }}
             >
               {loading ? (
@@ -329,7 +329,7 @@ export default function BlogForm() {
                     key={key}
                     type="button"
                     onClick={() => setActiveTab(key)}
-                    className={`px-5 py-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
+                    className={`px-5 py-3 cursor-pointer text-sm font-medium transition-colors border-b-2 -mb-px ${
                       activeTab === key
                         ? 'border-[#ED6D23] text-[#ED6D23]'
                         : 'border-transparent text-[#64748b] hover:text-[#1C3664]'
@@ -469,7 +469,7 @@ export default function BlogForm() {
                   type="button"
                   onClick={(e) => handleSubmit(e, 'draft')}
                   disabled={loading}
-                  className="w-full py-2 text-sm text-[#1C3664] border border-[#1C3664] rounded-lg hover:bg-[#1C3664]/5 transition-colors font-medium disabled:opacity-50"
+                  className="w-full py-2 cursor-pointer text-sm text-[#1C3664] border border-[#1C3664] rounded-lg hover:bg-[#1C3664]/5 transition-colors font-medium disabled:opacity-50"
                 >
                   Save as Draft
                 </button>
@@ -477,7 +477,7 @@ export default function BlogForm() {
                   type="button"
                   onClick={(e) => handleSubmit(e, 'published')}
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 py-2 text-sm text-white rounded-lg font-semibold transition-all hover:opacity-90 disabled:opacity-50"
+                  className="w-full flex cursor-pointer items-center justify-center gap-2 py-2 text-sm text-white rounded-lg font-semibold transition-all hover:opacity-90 disabled:opacity-50"
                   style={{ background: 'linear-gradient(135deg, #ED6D23, #f5883f)' }}
                 >
                   {loading && (

@@ -28,16 +28,34 @@ const upload = multer({
   },
 });
 
+// ── Helper: sanitise a string into a Cloudinary-safe public_id ───────────────
+const toPublicId = (str = '') =>
+  str
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .slice(0, 100);
+
 // ── Helper: upload buffer to Cloudinary ──────────────────────────────────────
-const uploadToCloudinary = (buffer, folder = 'amatir_blogs') =>
+// publicId — when provided, Cloudinary stores the asset under that exact name
+// instead of generating a random one. The folder is still applied as a prefix.
+const uploadToCloudinary = (buffer, folder = 'amatir_blogs', publicId = null) =>
   new Promise((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream(
-      { folder, resource_type: 'image', quality: 'auto', fetch_format: 'auto' },
-      (err, result) => {
-        if (err) return reject(err);
-        resolve(result);
-      }
-    );
+    const options = {
+      folder,
+      resource_type: 'image',
+      // Store in best quality/format — also activates auto delivery
+      quality: 'auto',
+      fetch_format: 'auto',
+      // Use caller-supplied name so the asset is identifiable in Cloudinary
+      ...(publicId ? { public_id: toPublicId(publicId), overwrite: true } : {}),
+    };
+    const stream = cloudinary.uploader.upload_stream(options, (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
     stream.end(buffer);
   });
 
@@ -196,7 +214,10 @@ router.get('/admin/:id', protect, async (req, res) => {
 router.post('/admin/upload-image', protect, upload.single('image'), async (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'No file provided' });
   try {
-    const result = await uploadToCloudinary(req.file.buffer, 'amatir_blogs/content');
+    // Use original filename (without extension) as the public_id so inline
+    // images are identifiable in Cloudinary instead of having random names.
+    const originalName = req.file.originalname.replace(/\.[^.]+$/, '') || 'inline-image';
+    const result = await uploadToCloudinary(req.file.buffer, 'amatir_blogs/content', originalName);
     res.json({ url: result.secure_url, publicId: result.public_id });
   } catch (err) {
     console.error('[Upload Image Error]', err);
@@ -220,10 +241,13 @@ router.post(
         return res.status(400).json({ message: 'Content is required' });
       }
 
-      // Cover image upload
+      // Cover image upload — use blog slug as the public_id so the asset has
+      // a meaningful name in Cloudinary (e.g. amatir_blogs/covers/my-blog-title)
       let coverImage = { url: '', publicId: '', altText: data.coverImage?.altText || '' };
       if (req.file) {
-        const result = await uploadToCloudinary(req.file.buffer, 'amatir_blogs/covers');
+        // Derive a slug from data.slug (already computed client-side) or title
+        const coverPublicId = data.slug || data.title || 'cover';
+        const result = await uploadToCloudinary(req.file.buffer, 'amatir_blogs/covers', coverPublicId);
         coverImage.url = result.secure_url;
         coverImage.publicId = result.public_id;
         coverImage.altText = data.coverImage?.altText || '';
@@ -246,6 +270,11 @@ router.post(
         ...(data.status === 'published' && { publishedAt: new Date() }),
       });
 
+      // If this blog is featured, unset featured on all others
+      if (blog.featured) {
+        await Blog.updateMany({ _id: { $ne: blog._id }, featured: true }, { $set: { featured: false } });
+      }
+
       res.status(201).json({ blog });
     } catch (err) {
       console.error('[POST /blogs]', err);
@@ -266,12 +295,13 @@ router.put(
 
       const data = JSON.parse(req.body.blogData || '{}');
 
-      // Handle cover image update
+      // Handle cover image update — delete old then upload new under the slug name
       let coverImage = existing.coverImage;
       if (req.file) {
         // Delete old image from Cloudinary
         await deleteFromCloudinary(existing.coverImage?.publicId);
-        const result = await uploadToCloudinary(req.file.buffer, 'amatir_blogs/covers');
+        const coverPublicId = data.slug ?? existing.slug ?? existing.title ?? 'cover';
+        const result = await uploadToCloudinary(req.file.buffer, 'amatir_blogs/covers', coverPublicId);
         coverImage = {
           url: result.secure_url,
           publicId: result.public_id,
@@ -302,6 +332,11 @@ router.put(
 
       Object.assign(existing, updates);
       await existing.save();
+
+      // If this blog is now featured, unset featured on all others
+      if (existing.featured) {
+        await Blog.updateMany({ _id: { $ne: existing._id }, featured: true }, { $set: { featured: false } });
+      }
 
       res.json({ blog: existing });
     } catch (err) {

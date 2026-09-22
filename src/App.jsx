@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import { AuthProvider } from './admin/AuthContext';
 import ProtectedRoute, { PublicOnlyRoute } from './admin/ProtectedRoute';
 import AdminLogin from './admin/AdminLogin';
+import DashboardHome from './admin/DashboardHome';
 import Dashboard from './admin/Dashboard';
 import BlogForm from './admin/BlogForm';
 
@@ -298,7 +299,7 @@ function App() {
               path="/dashboard"
               element={
                 <ProtectedRoute>
-                  <Dashboard />
+                  <DashboardHome />
                 </ProtectedRoute>
               }
             />

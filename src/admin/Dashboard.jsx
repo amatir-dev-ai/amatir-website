@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../lib/api';
 import AdminLayout from './components/AdminLayout';
+import { cldUrl } from '../lib/cloudinary';
 
 const STATUS_COLORS = {
   published: 'bg-green-100 text-green-700',
@@ -300,7 +301,7 @@ export default function Dashboard() {
                       <div className="flex items-center gap-3">
                         {blog.coverImage?.url ? (
                           <img
-                            src={blog.coverImage.url}
+                            src={cldUrl(blog.coverImage.url, { w: 80, h: 80 })}
                             alt={blog.coverImage.altText || blog.title}
                             className="w-10 h-10 rounded-lg object-cover shrink-0 border border-[#e2e8f0]"
                           />
@@ -332,7 +333,7 @@ export default function Dashboard() {
                       <button
                         onClick={() => handleToggleStatus(blog._id)}
                         disabled={toggling === blog._id}
-                        className={`text-xs font-medium px-2.5 py-1 rounded-full transition-all disabled:opacity-60 ${STATUS_COLORS[blog.status]}`}
+                        className={`text-xs font-medium px-2.5 py-1 rounded-full cursor-pointer transition-all disabled:opacity-60 ${STATUS_COLORS[blog.status]}`}
                       >
                         {toggling === blog._id ? '…' : blog.status}
                       </button>
