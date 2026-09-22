@@ -103,6 +103,8 @@ export default function BlogDetail() {
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [relatedBlogs, setRelatedBlogs] = useState([]);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -112,7 +114,19 @@ export default function BlogDetail() {
     api
       .get(`/blogs/${slug}`)
       .then(({ data }) => {
-        setBlog(data.blog);
+        const fetchedBlog = data.blog;
+        setBlog(fetchedBlog);
+
+        // Fetch related blogs: prefer same tag, fallback to latest
+        const tag = fetchedBlog?.tags?.[0];
+        const params = new URLSearchParams({ limit: 4 });
+        if (tag) params.set('tag', tag);
+        return api.get(`/blogs?${params}`);
+      })
+      .then(({ data }) => {
+        // Exclude the current blog from related
+        const filtered = (data.blogs || []).filter((b) => b.slug !== slug).slice(0, 3);
+        setRelatedBlogs(filtered);
       })
       .catch((err) => {
         if (err.response?.status === 404) {
@@ -257,18 +271,39 @@ export default function BlogDetail() {
 
             <div className="ml-auto">
               <button
-                onClick={() => navigator.clipboard?.writeText(window.location.href).then(() => alert('Link copied!'))}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-white/70 border border-white/20 hover:border-white/50 hover:text-white transition-all"
+                onClick={() => {
+                  navigator.clipboard?.writeText(window.location.href).then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  });
+                }}
+                className="flex cursor-pointer items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all"
+                style={{
+                  color: copied ? '#fff' : 'rgba(255,255,255,0.7)',
+                  borderColor: copied ? ORANGE : 'rgba(255,255,255,0.2)',
+                  background: copied ? ORANGE : 'transparent',
+                }}
               >
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                  />
-                </svg>
-                Share
+                {copied ? (
+                  <>
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                      />
+                    </svg>
+                    Share
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -277,11 +312,11 @@ export default function BlogDetail() {
 
       {/* ── Cover Image (full width, below hero) ── */}
       {blog.coverImage?.url && (
-        <div className="bg-white -mt-[80px] ">
+        <div className="bg-white -mt-[80px] mx-[14px]">
           <div className="max-w-6xl mx-auto relative">
             <div className="flex flex-col lg:flex-row gap-6">
               {/* ── Main Article ── */}
-              <div className="flex-1 min-w-0 bg-white p-5 rounded-xl blog-content-wrapper border border-[#dce6f0] shadow-[0_4px_24px_rgba(28,54,100,0.08),0_1px_4px_rgba(28,54,100,0.05)]">
+              <div className="flex-1 min-w-0 bg-white lg:p-5 p-3 rounded-xl blog-content-wrapper border border-[#dce6f0] shadow-[0_4px_24px_rgba(28,54,100,0.08),0_1px_4px_rgba(28,54,100,0.05)]">
                 <div className="relative mb-4">
                   <img
                     src={cldUrl(blog.coverImage.url, { w: 1200 })}
@@ -293,7 +328,7 @@ export default function BlogDetail() {
                 {/* Excerpt */}
                 {blog.excerpt && (
                   <p
-                    className="text-lg text-[#374151] leading-relaxed italic border-l-4 pl-5 mb-8 py-1"
+                    className="lg:text-lg text-[16px] text-[#374151] leading-relaxed italic border-l-4 pl-5 mb-8 py-1"
                     style={{ borderColor: ORANGE }}
                   >
                     {blog.excerpt}
@@ -368,6 +403,62 @@ export default function BlogDetail() {
                     Apply Now
                   </Link>
                 </div>
+
+                {/* Related blogs */}
+                {relatedBlogs.length > 0 && (
+                  <div className="rounded-2xl border border-[#e8eef6] bg-white shadow-sm overflow-hidden">
+                    <div className="px-5 py-4 border-b border-[#e8eef6]">
+                      <p
+                        className="text-base font-bold text-[#1C3664]"
+                        style={{ fontFamily: 'CentSchbkCyrill BT, serif' }}
+                      >
+                        Related Articles
+                      </p>
+                    </div>
+                    <ul className="divide-y divide-[#f0f4f8]">
+                      {relatedBlogs.map((rb) => {
+                        const rbDate = rb.publishedAt
+                          ? new Date(rb.publishedAt).toLocaleDateString('en-IN', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric',
+                            })
+                          : '';
+                        return (
+                          <li key={rb._id || rb.slug}>
+                            <Link
+                              to={`/blogs/${rb.slug}`}
+                              className="flex gap-3 p-4 hover:bg-[#f8fafc] transition-colors group"
+                            >
+                              {rb.coverImage?.url && (
+                                <img
+                                  src={cldUrl(rb.coverImage.url, { w: 120 })}
+                                  alt={rb.coverImage.altText || rb.title}
+                                  className="w-16 h-16 rounded-lg object-cover shrink-0"
+                                />
+                              )}
+                              <div className="min-w-0">
+                                <p className="text-sm font-semibold text-[#1C3664] leading-snug line-clamp-2 group-hover:text-[#ED6D23] transition-colors">
+                                  {rb.title}
+                                </p>
+                                {rbDate && <p className="text-xs text-[#94a3b8] mt-1">{rbDate}</p>}
+                              </div>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                    <div className="px-5 py-3 border-t border-[#f0f4f8]">
+                      <Link
+                        to="/blogs"
+                        className="text-xs font-semibold transition-colors hover:opacity-80"
+                        style={{ color: ORANGE }}
+                      >
+                        View all articles →
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </aside>
             </div>
             <div className="my-8">

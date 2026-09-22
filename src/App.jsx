@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -23,11 +23,6 @@ import Academics from './pages/Academics';
 import Boarding from './pages/Boarding';
 import Facilities from './pages/Facilities';
 import LifeAtAmatir from './pages/LifeAtAmatir';
-import Blog from './pages/Blog';
-import Blog2 from './pages/Blog2';
-import Blog3 from './pages/Blog3';
-import Blog4 from './pages/Blog4';
-import Blog5 from './pages/Blog5';
 import CampusVisit from './pages/CampusVisit';
 import Careers from './pages/Careers';
 import CoCurricular from './pages/CoCurricular';
@@ -51,11 +46,6 @@ import MobileAcademics from './pages/mobile/Academics';
 import MobileBoarding from './pages/mobile/Boarding';
 import MobileFacilities from './pages/mobile/Facilities';
 import MobileLifeAtAmatir from './pages/mobile/LifeAtAmatir';
-import MobileBlog from './pages/mobile/Blog';
-import MobileBlog2 from './pages/mobile/Blog2';
-import MobileBlog3 from './pages/mobile/Blog3';
-import MobileBlog4 from './pages/mobile/Blog4';
-import MobileBlog5 from './pages/mobile/Blog5';
 import MobileCampusVisit from './pages/mobile/CampusVisit';
 import MobileCareers from './pages/mobile/Careers';
 import MobileCoCurricular from './pages/mobile/CoCurricular';
@@ -221,11 +211,6 @@ function App() {
               path="/life-at-amatir"
               element={<ResponsivePage DesktopComponent={LifeAtAmatir} MobileComponent={MobileLifeAtAmatir} />}
             />
-            <Route path="/blog" element={<ResponsivePage DesktopComponent={Blog} MobileComponent={MobileBlog} />} />
-            <Route path="/blog2" element={<ResponsivePage DesktopComponent={Blog2} MobileComponent={MobileBlog2} />} />
-            <Route path="/blog3" element={<ResponsivePage DesktopComponent={Blog3} MobileComponent={MobileBlog3} />} />
-            <Route path="/blog4" element={<ResponsivePage DesktopComponent={Blog4} MobileComponent={MobileBlog4} />} />
-            <Route path="/blog5" element={<ResponsivePage DesktopComponent={Blog5} MobileComponent={MobileBlog5} />} />
             <Route
               path="/campus-visit"
               element={<ResponsivePage DesktopComponent={CampusVisit} MobileComponent={MobileCampusVisit} />}
