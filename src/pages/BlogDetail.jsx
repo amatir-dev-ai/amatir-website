@@ -161,11 +161,12 @@ export default function BlogDetail() {
     if (!container) return;
     container.innerHTML = '';
     const iframe = document.createElement('iframe');
-    iframe.id = 'crm-form-17';
-    iframe.src = `https://connect.amatir.org/CRM/forms/public/17?embed=1&landing_url=${encodeURIComponent(window.location.href)}`;
+    iframe.id = 'crm-form-33';
+    iframe.src = `https://crm.mediagarh.com/CRM/forms/public/33?embed=1&landing_url=${encodeURIComponent(window.location.href)}`;
     iframe.style.width = '100%';
-    iframe.style.height = '400px';
+    iframe.style.height = '420px';
     iframe.style.border = '0';
+    iframe.style.background = 'transparent';
     container.appendChild(iframe);
   }, [loading, blog]);
 
@@ -427,7 +428,7 @@ export default function BlogDetail() {
                       Interested in Amatir Kanya Gurukul? We'll get back to you.
                     </p>
                   </div>
-                  <div ref={crmContainerRef} id="crm-form-container-17" className="w-full h-full bg-white" />
+                  <div ref={crmContainerRef} id="crm-form-container-33" className="w-full h-full bg-white p-3" />
                 </div>
 
                 {/* Related blogs */}
