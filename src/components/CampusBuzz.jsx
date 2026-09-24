@@ -8,7 +8,7 @@ const BLOG_DATA = {
     slug: 'blog',
     title: 'Curriculum in Gurukuls: What Parents Should Know',
     excerpt:
-      'Parents today are looking for more than just high scores—they want education that nurtures character, confidence, and clarity. The modern Gurukul system has evolved to offer just that: a balanced curriculum that blends traditional Indian wisdom with academic excellence.',
+      'Parents today are looking for more than just high scores. They want education that nurtures character, confidence, and clarity. The modern Gurukul system has evolved to offer just that, a balanced curriculum that blends traditional Indian wisdom with academic rigor, which is exactly why Amatir has grown into a genuinely modern Gurukul school in India rather than a relic of the past.',
     img: '/images/Blog_main_pic_b15a6e.jpg',
     date: '10 Oct 2025',
     read: '7 min read',

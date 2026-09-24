@@ -101,7 +101,7 @@ export default function CampusLifeCarousel({ Slides }) {
           className="font-['PT_Serif']"
           style={{ fontSize: unescoTitleFontSize }}
         >
-          UNESCO Vision, Our Guiding Principles
+         UNESCO Vision: Our Guiding Principles
         </h3>
         <p
           ref={descRef}
@@ -244,3 +244,4 @@ export default function CampusLifeCarousel({ Slides }) {
     </section>
   );
 }
+ 

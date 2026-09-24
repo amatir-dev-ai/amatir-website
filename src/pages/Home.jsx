@@ -191,7 +191,10 @@ export default function Home() {
                     className="mt-2 max-w-[520px] leading-[1.7]"
                     style={{ fontSize: unlockCardDescFontSize }}
                   >
-                    Discover why Amatir is regarded as one of the best Gurukul in India. Schedule a guided campus tour to explore our facilities, meet our team, and experience the environment we've created for holistic learning and growth.
+                    Numbers and prospectuses only tell you so much. The best way to understand why families keep
+                    calling Amatir the best girls boarding school is to walk the campus yourself. Schedule a guided
+                    tour to see our facilities, meet our team, and get a feel for the day-to-day
+                     life that has earned us a reputation as one of the best gurukul options for girls in India.
                   </p>
                   <Link to="/campus-visit" className="mt-5 inline-block rounded-full bg-white px-5 py-2 text-[#1C3664] cursor-pointer">Register Now</Link>
                 </div>
@@ -221,9 +224,13 @@ export default function Home() {
                     className="mt-2 max-w-[520px] leading-[1.7]"
                     style={{ fontSize: unlockCardDescFontSize }}
                   >
-                    Take the first step toward joining Amatir, an all-girls residential school. Register for the aptitude test to assess your child's potential and eligibility for our unique learning environment.
+                    Ready to take the next step? Amatir welcomes girls into its residential program through a straightforward 
+                    aptitude test designed to understand each child's strengths and readiness for our learning environment. 
+                    As a well-established Gurukul school, we look for curiosity and character as much as academic 
+                    ability. Register today to begin the process.
                   </p>
-                  <a href="/admissions#aptitude-test" className="mt-5 inline-block rounded-full bg-white px-5 py-2 text-[#1C3664] cursor-pointer">Apply</a>
+                  <a href="/admissions#aptitude-test" className="mt-5 inline-block rounded-full
+                   bg-white px-5 py-2 text-[#1C3664] cursor-pointer">Apply</a>
                 </div>
               </article>
             </div>

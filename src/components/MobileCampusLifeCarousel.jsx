@@ -18,7 +18,7 @@ const SLIDES = [
     titleTop: "Learning to",
     titleBottom: "Know",
     body:
-      "Fostering curiosity and a love for learning through a rigorous, value-based education curriculum that promotes exploration, critical thinking, and intellectual growth—preparing students for success in higher education and beyond.",
+      "Fostering curiosity and a love for learning through a rigorous, value-based education curriculum that promotes exploration, critical thinking, and intellectual growth, preparing students for success in higher education and beyond.",
     bullets: [
       "Innovative Curriculum",
       "Skill-Based Learning", 
@@ -48,11 +48,11 @@ const SLIDES = [
     titleTop: "Learning to Live",
     titleBottom: "Together",
     body:
-      "Cultivating harmony, collaboration, and a strong sense of community—nurturing lifelong relationships and a spirit of shared responsibility.",
+      "Cultivating harmony, collaboration, and a strong sense of community, nurturing lifelong relationships and a spirit of shared responsibility.",
     bullets: [
       "Chetna-Prabha",
       "Happiness Council",
-      "Pillars of Care : Samrakshika & Samposhini",
+      "Pillars of Care: Samrakshika & Samposhini",
       "Marg Darshini"
     ],
     img: "/images/IMG_1063_n2d5a6.jpg",
@@ -68,7 +68,7 @@ const SLIDES = [
       "Hawan",
       "Classical Isha Hatha Yoga",
       "Inner Engineering",
-      "Sandhya"
+      "Sandhya "
     ],
     img: "/images/Learning_to_be_yzbdez (1).jpg",
     link: "/academics#gurukul"

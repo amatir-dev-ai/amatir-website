@@ -68,9 +68,10 @@ export default function AffiliationSection() {
               Affiliation
             </h3>
             <p className="mt-3 leading-[1.6] text-black" style={{ fontSize: descSize }}>
-              Amatir Kanya Gurukul is a reputed CBSE girls school, proudly affiliated with the
-              Central Board of Secondary Education (CBSE). Explore complete details, including
-              mandatory disclosures and access to all relevant information below.
+           Amatir Kanya Gurukul is proudly affiliated with the Central Board of Secondary Education (CBSE). 
+           That affiliation, combined with our residential setup, is why we're recognized as a dependable girls 
+           residential school by the families who send their daughters here. Explore complete details below,
+            including mandatory disclosures and all relevant information.
             </p>
             <Link
               to="/essential-information#cbseDisclosure"
@@ -95,9 +96,10 @@ export default function AffiliationSection() {
               Affiliation
             </h3>
             <p className="mt-3 leading-[1.6] text-black" style={{ fontSize: descSize }}>
-              Amatir Kanya Gurukul is a reputed CBSE girls school, proudly affiliated with the
-              Central Board of Secondary Education (CBSE). Explore complete details, including
-              mandatory disclosures and access to all relevant information below.
+         Amatir Kanya Gurukul is proudly affiliated with the Central Board of Secondary Education (CBSE). 
+           That affiliation, combined with our residential setup, is why we're recognized as a dependable girls 
+           residential school by the families who send their daughters here. Explore complete details below,
+            including mandatory disclosures and all relevant information.
             </p>
             <Link
               to="/essential-information#cbseDisclosure"

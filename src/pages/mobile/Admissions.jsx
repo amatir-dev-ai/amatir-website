@@ -207,7 +207,7 @@ export default function Admissions() {
               className="mx-auto mb-4 h-[3.375rem] w-[3.375rem]"
             />
             <h1 className="font-serif text-[3.375rem] leading-tight text-white md:text-[4.125rem]" style={{ marginBottom: "35%" }}>
-              Admissions
+              Amatir Kanya Gurukul Admissions
             </h1>
           </div>
         </div>
@@ -227,7 +227,7 @@ export default function Admissions() {
             textAlign: "center",
           }}
         >
-          Your Journey to Excellence Begins Here
+Your Journey to Excellence Begins Here
         </h2>
         <p
           className="mx-auto max-w-[47.5rem] text-center text-[18px] leading-[1.5] text-[#3E4450]"
@@ -239,12 +239,8 @@ export default function Admissions() {
             textAlign: "justify",
           }}
         >
-          At Amatir, admissions are more than just a process—they mark the
-          beginning of a meaningful journey for your daughter. Whether you're
-          considering Amatir Kanya Gurukul admission for 2025 or seeking clarity
-          on the gurukul kurukshetra fee structure, we are here to provide
-          guidance at every step. Here's a look at how the admission process
-          unfolds:
+     At Amatir, admissions are more than just a process; they mark the beginning of a meaningful journey for your daughter. Whether you're exploring Amatir Kanya Gurukul admission for 2026 or simply want clarity on our fee structure, we're here to guide you through every step. Many families researching the best girls boarding school admission in Haryana tell us it's the personal, one-on-one support that sets the experience apart, and that's exactly what we aim to offer from your very first enquiry to the day your daughter joins us on campus. Here's a look at how the admission process unfolds.
+s
         </p>
       </section>
 
@@ -380,9 +376,10 @@ export default function Admissions() {
               width: window.innerWidth <= 1024 && window.innerHeight <= 600 ? "72%" : undefined
             }}
           >
-            We warmly invite prospective parents to visit the Amatir campus,
-            interact with our team, and experience firsthand the vibrant
-            learning environment of our Gurukul.
+   We warmly invite prospective parents to visit the Amatir campus, interact with our team, and 
+   experience firsthand the vibrant learning environment of our Gurukul, a place families across
+    the region have come to know as a trusted home for their daughters' education.
+
           </p>
           <Link
             to="/campus-visit"
@@ -441,7 +438,10 @@ export default function Admissions() {
           Visit Campus
         </h3>
         <p className="mx-auto text-center text-[#3E4450]" style={{ maxWidth: "45ch", marginTop: "0.5rem", lineHeight: 1.8, fontSize: "0.95rem" }}>
-          We warmly invite prospective parents to visit the Amatir campus, interact with our team, and experience firsthand the vibrant learning environment of our Gurukul.
+         We warmly invite prospective parents to visit the Amatir campus, interact with our team, 
+         and experience firsthand the vibrant learning environment of our Gurukul, a place families across
+          the region have come to know as a trusted home for their daughters' education.
+
         </p>
         <div className="flex justify-center" style={{ marginTop: "1.25rem", marginBottom: "2rem" }}>
           <a href="/campus-visit" className="inline-block rounded-full bg-[#ED6D23] text-white shadow-[0_0.625rem_1.25rem_rgba(237,109,35,0.35)] hover:brightness-105 cursor-pointer" style={{ padding: "0.7rem 1.2rem", fontSize: "0.95rem" }}>

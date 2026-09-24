@@ -39,7 +39,7 @@ const CLOUD = {
   g3: "/images/KUM_3205_uunnhj.jpg",
   g4: "/images/GOPR2287_lw3vte.jpg",
   g5: "/images/059A9848_wnterv.jpg",
-  g6: "/images/059A0109_zlyowu.jpg",
+  g6: "/images/059A0109_zlyowu.jpg", 
   g7: "/images/IMG_1070_qfxs0g.jpg",
   g8: "/images/Hostel-Kitchen02_gkjsof.jpg",
 
@@ -119,7 +119,7 @@ function HomeAway() {
     <section className=" bg-white">
       <div className="mx-auto w-[92%] max-w-[1290px]">
         <div className="relative overflow-hidden rounded md:rounded-none">
-          <img src={CLOUD.homeAwayBg} alt="" className="w-full h-[220px] md:h-[300px] object-cover" />
+          <img src={CLOUD.homeAwayBg} alt="" className="w-full h-[400px] md:h-[400px] object-cover" />
           <div className="absolute inset-0" style={{ backgroundColor: "rgba(237,109,35,0.86)" }} />
           <div className="absolute inset-0 flex items-center justify-center text-center px-6">
             <div className="max-w-4xl text-white">
@@ -127,8 +127,9 @@ function HomeAway() {
                 Your Home Away From Home
               </h3>
               <p className="mt-3 md:mt-4 text-[14px] md:text-[16px] leading-relaxed">
-                At Amatir, over 300 girls from across India live in a safe, caring, and structured environment—fostering
-                growth, independence, and lifelong friendships.
+              At Amatir, over 300 girls from across India live in a safe, caring, and structured environment that fosters 
+            growth, independence, and lifelong friendships. It's this environment that has made Amatir home to some of
+             the best girls boarding facilities in India.
               </p>
             </div>
           </div>
@@ -167,10 +168,11 @@ function AmenitiesBlock() {
 
   return (
     <section className="py-12 md:py-16" style={{ backgroundColor: brand.light }}>
-      <div className="mx-auto w-[92%] max-w-[1290px]">
+      <div className="mx-auto w-[100%] max-w-[1290px]">
         <SectionTitle
           title="Amenities"
-          subtitle="Explore thoughtfully designed spaces and services that ensure comfort, safety, and well-being, making our boarding experience truly exceptional."
+          subtitle="Explore thoughtfully designed spaces and services that ensure comfort, safety, and well-being, making our boarding experience truly exceptional. As a girls boarding school with hostel facilities built around every girl's comfort, we've designed every corner of campus life with her needs in mind.
+"
         />
 
         <div className="mt-10 grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 items-start">
@@ -239,20 +241,20 @@ function AmenitiesBlock() {
 
 const CHETNA = [
   {
-    title: "Emotional Well-being", img: "/images/Emotional_wellbeing_fzxout.jpg",
-    desc: "Helping each girl understand her feelings, manage stress, and feel calm and confident—so she can face challenges without feeling overwhelmed."
+    title: "Self & Emotional Well-being", img: "/images/Emotional_wellbeing_fzxout.jpg",
+    desc: "Self & Emotional Well-being — Understanding emotions, managing stress and developing resilience, confidence and self-awareness."
   },
   {
-    title: "Social Well-being", img: "/images/social_wellbeing-team_work_woh9rj.jpg",
-    desc: "Encouraging strong friendships, kind communication, and teamwork—creating a safe, supportive sisterhood."
+    title: "Relationships & Social Well-being", img: "/images/social_wellbeing-team_work_woh9rj.jpg",
+    desc: " Building empathy, respectful communication, healthy friendships and the ability to resolve conflicts."
   },
   {
-    title: "Cognitive Well-being", img: "/images/cognitive_wellbeing-confidence_vqfbne.jpg",
-    desc: "Improving focus, clear thinking, and smart decision-making—so she can learn better and solve everyday problems with confidence."
+    title: "Thinking & Responsible Choices", img: "/images/cognitive_wellbeing-confidence_vqfbne.jpg",
+    desc: "Strengthening reflection, decision-making, digital awareness and the ability to respond thoughtfully to challenges."
   },
   {
-    title: "Ethics & Integrity", img: "/images/Ethics_Integrity_sfkdy8.jpg",
-    desc: "Instilling honesty, responsibility, and values—so each girl grows into a grounded, principled young woman."
+    title: "Values & Character", img: "/images/Ethics_Integrity_sfkdy8.jpg",
+    desc: "Nurturing honesty, responsibility, compassion, integrity and a sense of responsibility towards others and society."
   },
 ];
 
@@ -289,13 +291,13 @@ function ChetnaPrabha() {
     <section className="py-12 md:py-16 bg-white">
       <div className="mx-auto w-[92%] max-w-[1290px]">
         <SectionTitle
-          title="Chetna Prabha"
-          subtitle="Our signature initiative dedicated to empowering young minds through holistic development and self-awareness."
+          title="Illuminating Awareness"
+          subtitle="Chetna Prabha is Amatir’s distinctive initiative for the psychological, emotional, social and behavioural well-being of its students and the wider school community. Through 24×7 pastoral presence, counselling and experiential learning, it helps girls understand themselves, build healthy relationships, navigate challenges and grow into confident, responsible and grounded young women."
         />
         <p
           className="text-center cent-schbk-cyrill text-[#ED6D23] mt-6"
         >
-          At The Heart
+          Our focus
         </p>
 
         {/* Fade slider */}
@@ -338,7 +340,11 @@ function ChetnaPrabha() {
             />
           ))}
         </div>
+              <p className="py-5 text-center max-w-3xl mx-auto opacity-90">
+         Chetna Prabha goes beyond one-time counselling or classroom lectures. It is an ongoing culture of care, reflection and growth—experienced through daily life at Amatir.
+        </p>
       </div>
+
     </section>
   );
 }
@@ -354,7 +360,7 @@ const PROGRAMS = [
   {
     title: "Group Workshops",
     desc:
-      "Interactive sessions where girls learn life skills—like handling peer pressure, building self-esteem, and speaking up with confidence.",
+      "Interactive sessions where girls learn life skills, like handling peer pressure, building self-esteem, and speaking up with confidence.",
     iconImg: CLOUD.progWorkshops,
   },
   {
@@ -399,7 +405,7 @@ function ProgramsPractices() {
           Programs and Practices
         </h2>
         <p className="mt-3 text-center max-w-3xl mx-auto opacity-90">
-          Includes training for teachers and staff to support adolescent well-being with empathy.
+        Includes training for teachers and staff to support adolescent well-being with empathy, part of what makes Amatir a genuinely safe residential school for girls in India.
         </p>
 
         {/* Fade slider (no scroll bounce) */}

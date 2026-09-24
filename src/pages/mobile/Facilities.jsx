@@ -11,7 +11,7 @@ const brand = {
   deepNavy: "#0E2349",
   orange: "#ED6D23",
   light: "#F5F5F5",
-};
+}; 
 
 /* Cloudinary assets */
 const CLOUD = {
@@ -86,7 +86,7 @@ export default function Facilities() {
         label: "Playground",
         title: "Active Outdoor Spaces",
         text:
-          "Our spacious playground offers children a safe and active space to play, explore, and build essential physical and social skills. Daily outdoor time is a key part of our balanced learning approach.",
+          "Our spacious playground offers children a safe and active space to play, explore, and build essential physical and social skills. Daily outdoor time is a key part of our balanced learning approach, and one more reason Amatir is counted among the best school infrastructure in Haryana.",
         img: CLOUD.playground,
         alt: "Playground",
       },
@@ -222,9 +222,9 @@ export default function Facilities() {
         <div className="relative mx-auto max-w-[1290px] px-5 sm:px-8">
           <div className="h-[220px] md:h-[300px] flex items-center justify-center text-center text-white">
             <div className="max-w-4xl">
-              <h3 className="cent-schbk-cyrill">Everything You Need</h3>
+              <h3 className="cent-schbk-cyrill">Campus Facilities</h3>
               <p className="mt-3 md:mt-4 text-[14px] md:text-[16px] leading-relaxed">
-                Our campus offers state-of-the-art labs and facilities, encouraging hands-on learning where students can explore, experiment, and bring ideas to life.
+                Every corner of our CBSE school campus in Kurukshetra has been designed with one goal in mind: giving students a place where learning, comfort, and growth go hand in hand.
               </p>
             </div>
           </div>
@@ -273,7 +273,7 @@ export default function Facilities() {
               Boarding
             </h2>
             <p className="mt-3 max-w-[520px] text-[#3A2323] univers-regular">
-              Boarding at Amatir is more than accommodation—it's a nurturing experience. Our CBSE Gurukul facilities provide a warm, caring space where children grow, build friendships, and learn independence. A true second home that nurtures physical and mental well-being.
+      Boarding at Amatir is more than accommodation, it's a nurturing experience that reflects our standing among the best school facilities in Kurukshetra. Our CBSE Gurukul facilities provide a warm, caring space where children grow, build friendships, and learn independence, a true second home that nurtures physical and mental well-being. Behind that experience are some of the more thoughtfully designed girls hostel facilities in Haryana, built to feel less like a dormitory and more like home.
             </p>
             <a
               href="/boarding"
@@ -294,7 +294,7 @@ export default function Facilities() {
               Laboratory
             </h2>
             <p className="text-[#3A2323] max-w-[820px] mx-auto text-center univers-regular leading-[1.5] mt-2" style={{ fontSize: isMobile ? 16 : 18 }}>
-              As a Gurukul academy committed to holistic education, our campus includes state-of-the-art labs, smart classrooms, and hands-on experiential learning that help students explore, experiment, and apply knowledge across disciplines.
+As a Gurukul academy committed to holistic education, our campus includes state-of-the-art labs, smart classrooms, and hands-on experiential learning that help students explore, experiment, and apply knowledge across disciplines. It's this setup that makes Amatir a genuine school with smart classrooms and science labs, not just on paper, but in the way students learn every day.
             </p>
           </div>
 

@@ -31,7 +31,7 @@ const MobileAmatirKanyaGurukul = () => {
             className="text-[#1C3664] opacity-90 mb-6"
             style={{ fontSize: subtitleFontSize }}
           >
-            Residential School for Girls
+           A CBSE Girls Boarding School
           </p>
           <p
             className="text-[#1C1C1C] leading-relaxed mb-8"
@@ -40,11 +40,10 @@ const MobileAmatirKanyaGurukul = () => {
               maxWidth: isMobile ? "100%" : "600px",
             }}
           >
-            Rooted in Bharat's timeless wisdom and strengthened by modern education,
-            Amatir nurtures academic excellence, life skills, and inner strength —
-            through personalized mentorship, state-of-the-art facilities, and a
-            home-like environment — empowering every girl to thrive with values
-            that last a lifetime.
+            Rooted in Bharat's timeless wisdom and strengthened by modern education, Amatir nurtures academic excellence, 
+         life skills, and inner strength through personalized mentorship, state-of-the-art facilities, and 
+         a home-like environment. Every girl who walks through our gates is empowered to thrive with values 
+         that last a lifetime.
           </p>
 
           <Link

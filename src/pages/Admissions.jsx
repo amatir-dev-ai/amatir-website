@@ -239,7 +239,7 @@ export default function Admissions() {
                 marginBottom: "10%",
               }}
             >
-              Admissions
+              Amatir Kanya Gurukul Admissions
             </h1>
           </div>
         </div>
@@ -413,9 +413,8 @@ export default function Admissions() {
                   : undefined,
             }}
           >
-            We warmly invite prospective parents to visit the Amatir campus,
-            interact with our team, and experience firsthand the vibrant
-            learning environment of our Gurukul.
+       We warmly invite prospective parents to visit the Amatir campus, interact with our team, and experience firsthand the vibrant learning environment of our Gurukul, a place families across the region have come to know as a trusted home for their daughters' education.
+
           </p>
           <Link
             to="/campus-visit"
@@ -438,9 +437,8 @@ export default function Admissions() {
           Visit Campus
         </h3>
         <p className="mx-auto mt-2 max-w-[45rem] text-center text-[0.938rem] leading-7 text-[#3E4450]">
-          We warmly invite prospective parents to visit the Amatir campus,
-          interact with our team, and experience firsthand the vibrant learning
-          environment of our Gurukul.
+    We warmly invite prospective parents to visit the Amatir campus, interact with our team, and experience firsthand the vibrant learning environment of our Gurukul, a place families across the region have come to know as a trusted home for their daughters' education.
+
         </p>
         <div className="mx-auto mt-7 grid max-w-[47.5rem] grid-cols-2 gap-4">
           {[

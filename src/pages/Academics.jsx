@@ -349,33 +349,34 @@ export default function AcademicsPage() {
   const tabData = [
     {
       id: "Foundation",
-      tagline: "The Foundation Stage is where curiosity begins to bloom.",
+      tagline: "Foundation Stage",
       content:
-        "Through hands-on projects and real-world applications, children learn by doing — asking questions, solving problems, and working together. No rote learning, no heavy textbooks — just meaningful experiences that spark independent thinking and a lifelong love for learning.",
+        "The Foundation Stage is where curiosity begins to bloom. Through hands-on projects and real-world applications, children learn by doing, asking questions, solving problems, and working together. No rote learning, no heavy textbooks, just meaningful experiences that spark independent thinking and a lifelong love for learning.",
       image: IMG.foundationShot,
     },
     {
       id: "Middle",
       tagline:
-        "In the Middle Stage, learning shifts from memorizing to mastering.",
+        "Middle Stage",
       content:
-        "A skill-based approach empowers students to think critically, communicate clearly, and solve real-world problems. With AI-powered tools like Embibe, each child learns at their own pace — gaining deeper understanding and lasting confidence. It's purposeful, personalised learning that prepares them for life beyond the classroom.",
+        "In the Middle Stage, learning shifts from memorizing to mastering. A skill-based approach empowers students to think critically, communicate clearly, and solve real-world problems. With AI-powered tools like Embibe, each child learns at their own pace, gaining deeper understanding and lasting confidence. It's purposeful, personalised learning that prepares them for life beyond the classroom.",
       image: "/images/1_10_cqscjr.jpg",
     },
-    {
-      id: "Secondary",
-      tagline: "Where students grow into confident, capable individuals.",
-      content:
-        "Beyond academics, the focus is on building character, leadership, and purpose. With personalised academic support and real-world problem-solving, students develop resilience, sharpen exam readiness, and take ownership of their learning journey. It's preparation for life — not just the board exams.",
-      image: "/images/Secondary_lmc82a.jpg",
-    },
+
     {
       id: "Senior",
       tagline:
-        "Shaping confident, self-aware leaders — rooted in values, ready for the world",
+        "Senior Stage",
       content:
-        "Academic excellence goes hand-in-hand with life skills, global exposure, and purpose-driven growth. From university readiness to leadership development, students are empowered to think boldly, act responsibly, and lead with both head and heart.",
+        "Where students grow into confident, capable individuals. Beyond academics, the focus is on building character, leadership, and purpose. With personalised academic support and real-world problem-solving, students develop resilience, sharpen exam readiness, and take ownership of their learning journey. It's preparation for life, not just the board exams, and it's this holistic approach that has earned Amatir its reputation as the best academic school in Kurukshetra.",
       image: IMG.senior,
+    },
+        {
+      id: "Senior Secondary",
+      tagline: "Senior Secondary Stage",
+      content:
+        "Shaping confident, self-aware leaders, rooted in values, ready for the world. Academic excellence goes hand-in-hand with life skills, global exposure, and purpose-driven growth. From university readiness to leadership development, students are empowered to think boldly, act responsibly, and lead with both head and heart.",
+      image: "/images/Secondary_lmc82a.jpg",
     },
   ];
 
@@ -450,7 +451,7 @@ export default function AcademicsPage() {
             className={`${Serif} text-[#1C3664] text-center font-[400]`}
             style={{ fontSize: "clamp(1.6rem,3.1vw,2.6rem)", lineHeight: 1.15 }}
           >
-            Curriculum
+            Curriculum That Grows With Your Child 
           </h2>
           <p
             className="mx-auto text-center text-[#3a2323]/90"
@@ -460,11 +461,8 @@ export default function AcademicsPage() {
               fontSize: "clamp(0.95rem,1.1vw,1.05rem)",
               marginTop: "1vh",
             }}
-          >
-            A future-ready curriculum aligned with CBSE, designed to grow with
-            your child. From building curiosity in early years to developing
-            real-world skills, confidence, and character in higher grades —
-            every stage prepares students not just for exams, but for life.
+          > 
+         A future-ready curriculum, shaped by CBSE standards for girls at our Kurukshetra school, designed to grow with your child. From building curiosity in the early years to developing real-world skills, confidence, and character in higher grades, every stage prepares students not just for exams, but for life. 
           </p>
 
           {/* tabs row */}
@@ -472,7 +470,7 @@ export default function AcademicsPage() {
             className="mx-auto grid"
             style={{
               gridTemplateColumns: "repeat(4,1fr)",
-              gap: "clamp(3rem,8vw,8rem)",
+              gap: "clamp(3rem,8vw,4rem)",
               maxWidth: "56rem",
               marginTop: "3.5vh",
             }}
@@ -559,10 +557,8 @@ export default function AcademicsPage() {
               marginTop: "1vh",
             }}
           >
-            We emphasize practical learning that helps children apply concepts
-            with confidence. By engaging in meaningful activities, they build a
-            strong academic foundation while developing abilities that support
-            independent learning and personal growth.
+  We emphasize practical learning that helps children apply concepts with confidence. By engaging in meaningful activities, they build a strong academic foundation while developing abilities that support independent learning and personal growth.
+
           </p>
 
           <div
@@ -588,14 +584,14 @@ export default function AcademicsPage() {
                 {
                   title: "Project-Based",
                   content:
-                    "Hands-on projects that bring learning to life—students build, experiment, and solve real-world problems while developing creativity, critical thinking, and collaboration.",
+                    "Hands-on projects that bring learning to life. Students build, experiment, and solve real-world problems while developing creativity, critical thinking, and collaboration.",
                   image: IMG.projectBased,
                   muted: activeSkillTab !== "Project-Based",
                 },
                 {
                   title: "Foundational Literacy & Numeracy (FLN)",
                   content:
-                    "Focused on strong basics in reading, writing, and math—empowering every child with the core skills needed for future learning and everyday life.",
+                    "Focused on strong basics in reading, writing, and math, empowering every child with the core skills needed for future learning and everyday life.",
                   image: IMG.fln,
                   muted:
                     activeSkillTab !== "Foundational Literacy & Numeracy (FLN)",
@@ -603,7 +599,7 @@ export default function AcademicsPage() {
                 {
                   title: "Art-Integrated",
                   content:
-                    "Blending art with academics to make learning fun and memorable—students explore subjects creatively through visuals, stories, and design.",
+                    "Blending art with academics to make learning fun and memorable, students explore subjects creatively through visuals, stories, and design.",
                   image: IMG.artIntegrated,
                   muted: activeSkillTab !== "Art-Integrated",
                 },
@@ -664,23 +660,54 @@ export default function AcademicsPage() {
             className={`${Serif} text-[#1C3664] text-center font-[400]`}
             style={{ fontSize: "clamp(1.6rem,3.1vw,2.6rem)" }}
           >
-            Preparing for Excellence
+Where CBSE Education Meets JEE and NEET Readiness
           </h2>
           <p
             className="mx-auto text-center text-[#3a2323]/90"
             style={{
-              maxWidth: "70ch",
+              maxWidth: "90ch",
               lineHeight: 1.8,
               fontSize: "clamp(0.95rem,1.1vw,1.05rem)",
               marginTop: "1vh",
             }}
           >
-            Expert faculty with a proven track record provide structured
-            guidance for JEE, NEET, and Olympiads. Through focused study plans,
-            regular assessments, and result-driven strategies, students are
-            prepared to excel in competitive exams.
+        Our association with Physics Wallah (PW) strengthens Amatir’s commitment to enabling more young women to pursue STEM careers and turn their academic aspirations into reality.
           </p>
 
+          <p
+            className="mx-auto text-center text-[#3a2323]/90"
+            style={{
+              maxWidth: "90ch",
+              lineHeight: 1.8,
+              fontSize: "clamp(0.95rem,1.1vw,1.05rem)",
+              marginTop: "1vh",
+            }}
+          >
+PW brings its structured curriculum, expert faculty and smart-board enabled learning directly to our classrooms, seamlessly integrating CBSE preparation with competitive exam readiness—reducing the need for additional evening coaching.
+          </p>
+
+          <p
+            className="mx-auto text-center text-[#3a2323]/90"
+            style={{
+              maxWidth: "90ch",
+              lineHeight: 1.8,
+              fontSize: "clamp(0.95rem,1.1vw,1.05rem)",
+              marginTop: "1vh",
+            }}
+          >
+Students in Classes 9–10 develop strong conceptual and analytical foundations, while senior students receive focused preparation for JEE and NEET through interactive digital learning, regular assessments, data-driven insights and dedicated doubt-clearing sessions.
+          </p>
+                 <p
+            className="mx-auto text-center text-[#3a2323]/90"
+            style={{
+              maxWidth: "90ch",
+              lineHeight: 1.8,
+              fontSize: "clamp(0.95rem,1.1vw,1.05rem)",
+              marginTop: "1vh",
+            }}
+          >
+At Amatir, we strive to give every girl the clarity, confidence and preparation to aim higher—and succeed. 
+          </p>
           <div
             className="mt-[5vh] grid"
             style={{

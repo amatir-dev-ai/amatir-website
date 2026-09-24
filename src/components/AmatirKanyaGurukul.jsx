@@ -240,13 +240,14 @@ const AKGSection = ({
         {/* RIGHT HALF */}
         <div className="w-1/2 flex items-center pl-12">
           <div>
-            <h2 className="font-['PT_Serif'] text-[#1C3664] text-4xl leading-tight">Amatir Kanya Gurukul</h2>
-            <p className="mt-2 text-[#1C3664] text-xl opacity-90">Residential School for Girls</p>
+            <h2 className="font-['PT_Serif'] text-[#1C3664] text-4xl leading-tight">Amatir Kanya Gurukul </h2>
+            <p className="mt-2 text-[#1C3664] text-xl opacity-90">A CBSE Girls Boarding School</p>
             <p className="mt-6 text-[#1C1C1C] text-base leading-relaxed max-w-lg">
-              Rooted in Bharat’s timeless wisdom and strengthened by modern education, Amatir nurtures academic
-              excellence, life skills, and inner strength—through personalized mentorship, state-of-the-art facilities,
-              and a home-like environment—empowering every girl to thrive with values that last a lifetime
-            </p>
+         Rooted in Bharat's timeless wisdom and strengthened by modern education, Amatir nurtures academic excellence, 
+         life skills, and inner strength through personalized mentorship, state-of-the-art facilities, and 
+         a home-like environment. Every girl who walks through our gates is empowered to thrive with values 
+         that last a lifetime.
+            </p> 
             <button
               onClick={() => navigate('/contact')}
               className="mt-7 bg-[#ED6D23] text-white px-6 py-3 rounded-full font-semibold cursor-pointer"

@@ -71,11 +71,8 @@ export default function MobileJourneyTImeline() {
             <p className="mt-1 text-[0.875rem] font-semibold text-[#1C3664]">Take the First Step</p>
             <h3 id="aptitude-test" className="font-serif text-[1.375rem] leading-[1.2] text-[#1C3664]">Apply for the Aptitude Test</h3>
             <p className="mt-2 text-[0.813rem] leading-6 text-[#3E4450]">
-              Begin by filling out a simple application form. This helps us
-              understand your daughter's background, interests, and learning
-              needs. If you are considering CBSE boarding school admission,
-              this form ensures that we tailor the process to suit your
-              requirements.
+        Begin by filling out a simple application form. This helps us understand your daughter's background, interests, and learning needs, and ensures the rest of the process is tailored to your family's specific requirements from the outset.
+
             </p>
             <button className="mt-4 inline-flex h-[2.125rem] items-center rounded-full bg-[#ED6D23] px-4 text-[0.813rem] text-white hover:brightness-105 cursor-pointer">
               Apply
@@ -92,9 +89,8 @@ export default function MobileJourneyTImeline() {
             <h3 className="text-left font-serif text-[1.375rem] text-[#1C3664]">Academic Assessment</h3>
             <p className="mt-2 text-[0.875rem] font-semibold text-[#1C3664]">Appear for the Aptitude Exam</p>
             <p className="mt-2 text-[0.813rem] leading-6 text-[#3E4450]">
-              Once we receive the application, your daughter will be invited
-              to take a brief aptitude test. This helps us assess her current
-              academic level and learning strengths.
+            Once we receive the application, your daughter will be invited to take a brief aptitude test. This helps us assess her current academic level and learning strengths so we can place her in the right environment from day one.
+
             </p>
           </div>
           <div className="rounded-[0.75rem] bg-[#F3F5F8] p-5">
@@ -108,7 +104,7 @@ export default function MobileJourneyTImeline() {
             <h3 className="font-serif text-[1.375rem] text-[#1C3664]">Counselling</h3>
             <p className="mt-2 text-[0.875rem] font-semibold text-[#1C3664]">Share Your Story</p>
             <p className="mt-2 text-[0.813rem] leading-6 text-[#3E4450]">
-              Shortlisted candidates and their guardians will be invited for an interaction with our psychologist. This is a warm, open conversation designed to understand the child better and explore how Amatir can best support her aspirations. We’ll also guide you through the step-by-step admission process and provide information on eligibility & guidelines to ensure a smooth transition.
+          Shortlisted candidates and their guardians will be invited for an interaction with our psychologist. This is a warm, open conversation designed to understand the child better and explore how Amatir can best support her aspirations. We'll also walk you through eligibility, guidelines, and every detail you need for a smooth transition into our Residential School Admission program.
             </p>
           </div>
           <div className="rounded-[0.75rem] bg-[#F3F5F8] p-5">
@@ -122,8 +118,7 @@ export default function MobileJourneyTImeline() {
             <h3 className="text-left font-serif text-[1.375rem] text-[#1C3664]">Admission Confirmation</h3>
             <p className="mt-2 text-[0.875rem] font-semibold text-[#1C3664]">Begin Your Educational Journey</p>
             <p className="mt-2 text-[0.813rem] leading-6 text-[#3E4450]">
-              Based on the outcome of the test and interview, selected
-              students will receive an official offer for admission.
+            Based on the outcome of the test and interview, selected students will receive an official offer of admission.
             </p>
             <div className="mt-4 flex">
               <a href="/Amatir_Admission_process.pdf" target="_blank" rel="noopener noreferrer">
