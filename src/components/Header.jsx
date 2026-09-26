@@ -64,6 +64,7 @@ export default function Header() {
 
   return (
     <>
+
       {/* Thin top bar */}
       <div className="fixed sticky inset-x-0 top-0 z-[1200] h-1  " />
 
