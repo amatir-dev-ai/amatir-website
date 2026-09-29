@@ -12,7 +12,19 @@ const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 const api = axios.create({
   baseURL: BASE_URL,
-  headers: { 'Content-Type': 'application/json' },
+  headers: {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache',
+  },
+});
+
+// Bust browser disk cache on every GET request
+api.interceptors.request.use((config) => {
+  if (!config.method || config.method.toLowerCase() === 'get') {
+    config.params = { ...config.params, _t: Date.now() };
+  }
+  return config;
 });
 
 // Attach JWT on every request

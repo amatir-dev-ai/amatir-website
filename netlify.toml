@@ -10,6 +10,13 @@
   status = 200
   force = true
 
+# Prevent browser from caching API responses
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate"
+    Pragma = "no-cache"
+
 # SPA fallback — must come AFTER the /api redirect
 [[redirects]]
   from = "/*"
