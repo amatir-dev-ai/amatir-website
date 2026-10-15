@@ -105,7 +105,7 @@ function calcReadingTime(html) {
 
 blogSchema.pre('save', async function (next) {
   // Slug generation
-  if (!this.slug || this.isModified('title')) {
+  if (!this.slug) {
     const baseSlug = generateSlug(this.title);
     let slug = baseSlug;
     let counter = 1;
