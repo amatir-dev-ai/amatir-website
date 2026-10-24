@@ -11,6 +11,8 @@ import AdminLogin from './admin/AdminLogin';
 import DashboardHome from './admin/DashboardHome';
 import Dashboard from './admin/Dashboard';
 import BlogForm from './admin/BlogForm';
+import AdmissionLeads from './admin/AdmissionLeads';
+import AdmissionLeadDetail from './admin/AdmissionLeadDetail';
 
 // Public blog pages
 import Blogs from './pages/Blogs';
@@ -38,6 +40,7 @@ import Cookies from './pages/Cookies';
 import ThankYou from './pages/ThankYou';
 import Admissions2526 from './pages/Admissions2526';
 import Vidyashri from './pages/Vidyashri';
+import AdmissionInterestForm from './pages/AdmissionInterestForm';
 
 import MobileHome from './pages/mobile/Home';
 import MobileAbout from './pages/mobile/About';
@@ -123,7 +126,10 @@ function MobileEnquirePageWrapper() {
 
 function AppLayout({ children }) {
   const location = useLocation();
-  const isAdmin = location.pathname.startsWith('/admin-login') || location.pathname.startsWith('/dashboard');
+  const isAdmin =
+    location.pathname.startsWith('/admin-login') ||
+    location.pathname.startsWith('/dashboard') ||
+    location.pathname === '/interest-form';
 
   // All route-aware hooks must live inside the Router tree
   // so we embed them here alongside the layout switch.
@@ -266,6 +272,7 @@ function App() {
             />
             <Route path="/admissions2526" element={<Admissions2526 />} />
             <Route path="/vidyashri" element={<Vidyashri />} />
+            <Route path="/interest-form" element={<AdmissionInterestForm />} />
 
             {/* ── New dynamic blog pages ── */}
             <Route path="/blogs" element={<Blogs />} />
@@ -309,6 +316,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <BlogForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/admission-leads"
+              element={
+                <ProtectedRoute>
+                  <AdmissionLeads />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/admission-leads/:id"
+              element={
+                <ProtectedRoute>
+                  <AdmissionLeadDetail />
                 </ProtectedRoute>
               }
             />

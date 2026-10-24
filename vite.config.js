@@ -28,9 +28,9 @@ export default defineConfig(({ mode }) => {
       // Proxy /api calls to the Express backend in development
       proxy: {
         '/api': {
-          target: env.VITE_API_PROXY_TARGET || 'https://amatir-website.onrender.com',
+          target: env.VITE_API_PROXY_TARGET || 'http://localhost:5000',
           changeOrigin: true,
-          secure: true,
+          secure: false,
         },
       },
     },

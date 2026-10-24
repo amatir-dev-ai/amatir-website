@@ -99,21 +99,30 @@ function RecentBlogRow({ blog }) {
 
 export default function DashboardHome() {
   const { admin } = useAuth();
-  const [stats, setStats] = useState({ total: null, published: null, draft: null });
+  const [stats, setStats] = useState({ total: null, published: null, draft: null, leads: null });
   const [recentBlogs, setRecentBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await api.get('/blogs/admin/all?page=1&limit=5');
-        const blogs = data.blogs ?? [];
-        setRecentBlogs(blogs);
-        setStats({
-          total: data.pagination?.total ?? blogs.length,
-          published: blogs.filter((b) => b.status === 'published').length,
-          draft: blogs.filter((b) => b.status === 'draft').length,
-        });
+        const [blogsRes, leadsRes] = await Promise.allSettled([
+          api.get('/blogs/admin/all?page=1&limit=5'),
+          api.get('/admission-leads/admin/stats'),
+        ]);
+        if (blogsRes.status === 'fulfilled') {
+          const blogs = blogsRes.value.data.blogs ?? [];
+          setRecentBlogs(blogs);
+          setStats((prev) => ({
+            ...prev,
+            total: blogsRes.value.data.pagination?.total ?? blogs.length,
+            published: blogs.filter((b) => b.status === 'published').length,
+            draft: blogs.filter((b) => b.status === 'draft').length,
+          }));
+        }
+        if (leadsRes.status === 'fulfilled') {
+          setStats((prev) => ({ ...prev, leads: leadsRes.value.data.stats?.total ?? 0 }));
+        }
       } catch {
         // silently fail — stats just show —
       } finally {
@@ -153,7 +162,7 @@ export default function DashboardHome() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <StatCard
           label="Total Posts"
           value={loading ? '…' : stats.total}
@@ -198,6 +207,22 @@ export default function DashboardHome() {
                 strokeLinejoin="round"
                 strokeWidth={2}
                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+              />
+            </svg>
+          }
+        />
+        <StatCard
+          label="Admission Leads"
+          value={loading ? '…' : stats.leads}
+          to="/dashboard/admission-leads"
+          color="bg-orange-100"
+          icon={
+            <svg className="w-6 h-6 text-[#ED6D23]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
           }
@@ -266,6 +291,22 @@ export default function DashboardHome() {
                   strokeLinejoin="round"
                   strokeWidth={2}
                   d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                />
+              </svg>
+            }
+          />
+          <QuickAction
+            to="/dashboard/admission-leads"
+            accent="#ED6D23"
+            label="Admission Leads"
+            description="View students who submitted the interest form."
+            icon={
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
             }
