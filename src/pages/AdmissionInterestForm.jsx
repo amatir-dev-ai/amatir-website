@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../lib/api';
+import axios from 'axios';
 
 const CLASS_OPTIONS = [
   'Pre-Nursery',
@@ -154,11 +154,9 @@ export default function AdmissionInterestForm() {
       fd.append('paymentScreenshot', file);
       fd.append('source', 'interest-form');
 
-      // Delete the default Content-Type so axios sets the correct
-      // multipart/form-data boundary automatically for FormData
-      await api.post('/admission-leads', fd, {
-        headers: { 'Content-Type': undefined },
-      });
+      // Use plain axios so FormData boundary isn't overridden by api.js defaults
+      const BASE = import.meta.env.VITE_API_URL || '/api';
+      await axios.post(`${BASE}/admission-leads`, fd);
 
       navigate('/thank-you');
     } catch (err) {
@@ -183,9 +181,21 @@ export default function AdmissionInterestForm() {
     <div className="min-h-screen" style={{ background: 'linear-gradient(160deg, #0a1929 0%, #0E2349 100%)' }}>
       {/* Header strip */}
       <div className="pt-8 pb-4 px-4">
-        <div className="max-w-[540px] mx-auto text-center">
-          <p className="text-[#ED6D23] text-xs font-semibold tracking-widest uppercase mb-1">AMATIR KANYA GURUKUL</p>
-          <p className="text-[#8fa3bf] text-xs">Hasanpur, Kurukshetra (Haryana) · CBSE Affiliated</p>
+        <div className="max-w-[540px] mx-auto flex items-center gap-3">
+          <img
+            src="/images/Logo_Blue_vl2ust.svg"
+            alt="Amatir Kanya Gurukul"
+            className="w-16 h-auto"
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
+          />
+          <div>
+            <p className="text-[#ED6D23] text-lg font-semibold tracking-widest uppercase mb-1">AMATIR KANYA GURUKUL</p>
+            <p className="text-[#8fa3bf] text-[16px]">
+              Bachgaon Gamri, Lukhi Road, Kurukshetra, Haryana 136119 · CBSE Affiliated
+            </p>
+          </div>
         </div>
       </div>
 

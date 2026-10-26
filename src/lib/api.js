@@ -4,10 +4,10 @@ import axios from 'axios';
 // In development: VITE_API_URL is not set, so we use '/api' which Vite proxies
 // to Render (see vite.config.js server.proxy) — no CORS issue.
 // In production (dist build): VITE_API_URL is baked in as the full Render URL.
-// const BASE_URL = import.meta.env.VITE_API_URL || 'https://amatir-website.onrender.com/api';
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://amatir-website.onrender.com/api';
 
 // 'Local'
-const BASE_URL = '/api';
+// const BASE_URL = '/api';
 
 
 const api = axios.create({
