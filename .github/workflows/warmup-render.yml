@@ -1,0 +1,35 @@
+name: Render Server Warm-Up
+
+# Runs every day at 6:00 AM IST = 00:30 UTC
+# This wakes the Render.com backend before users arrive,
+# so no one faces the cold-start delay in the morning.
+on:
+  schedule:
+    - cron: '30 0 * * *'   # 00:30 UTC = 06:00 AM IST
+
+  # Allow manual trigger from GitHub Actions tab (useful for testing)
+  workflow_dispatch:
+
+jobs:
+  ping:
+    name: Ping Render Backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wake up Render server
+        run: |
+          echo "Pinging Render backend at $(date -u)..."
+          RESPONSE=$(curl --silent --write-out "\nHTTP_STATUS:%{http_code} TIME:%{time_total}s" \
+            --max-time 60 \
+            "https://amatir-website.onrender.com/api/blogs?limit=1")
+          echo "$RESPONSE"
+
+          STATUS=$(echo "$RESPONSE" | grep -o 'HTTP_STATUS:[0-9]*' | cut -d: -f2)
+          TIME=$(echo "$RESPONSE" | grep -o 'TIME:[0-9.]*s')
+
+          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 400 ]; then
+            echo "✅ Render server is warm! Status: $STATUS | Response time: $TIME"
+          else
+            echo "❌ Unexpected status: $STATUS"
+            exit 1
+          fi

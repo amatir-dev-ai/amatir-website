@@ -75,6 +75,25 @@ app.use((err, _req, res, _next) => {
 
 app.listen(PORT, () => {
   console.log(`✅ API server running on http://localhost:${PORT}`);
+
+  // ── Keep-alive: ping self every 14 min so Render never spins down ──────────
+  // Only runs in production (Render sets NODE_ENV=production automatically)
+  if (process.env.NODE_ENV === 'production') {
+    const SELF_URL = process.env.RENDER_EXTERNAL_URL
+      ? `${process.env.RENDER_EXTERNAL_URL}/api/health`
+      : `http://localhost:${PORT}/api/health`;
+
+    setInterval(async () => {
+      try {
+        const res = await fetch(SELF_URL);
+        console.log(`[keep-alive] ping → ${res.status}`);
+      } catch (err) {
+        console.warn('[keep-alive] ping failed:', err.message);
+      }
+    }, 14 * 60 * 1000); // every 14 minutes
+
+    console.log(`🔔 Keep-alive pinging ${SELF_URL} every 14 min`);
+  }
 });
 
 export default app;
