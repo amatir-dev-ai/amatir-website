@@ -1,9 +1,7 @@
 import express from 'express';
 import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
-import { body, param, query, validationResult } from 'express-validator';
-import AdmissionLead from '../models/AdmissionLead.js';
-import { protect } from '../middleware/auth.js';
+import { body, validationResult } from 'express-validator';
 
 const router = express.Router();
 
@@ -49,7 +47,28 @@ const uploadToCloudinary = (buffer, folder, publicId, mimetype) =>
     stream.end(buffer);
   });
 
-// ── Validation helpers ────────────────────────────────────────────────────────
+// ── Google Sheet webhook URL ──────────────────────────────────────────────────
+const GOOGLE_SHEET_WEBHOOK_URL =
+  process.env.GOOGLE_SHEET_WEBHOOK_URL ||
+  'https://script.google.com/macros/s/AKfycbxFYtY3xkLxT0hrf5PNBkjNu7rSEzqKEcWoImHN4TW8Ewsr31Gv4usCaYME6viJLDSa/exec';
+
+// ── Helper: send lead data to Google Sheet via Apps Script webhook ────────────
+const sendToGoogleSheet = async (payload) => {
+  try {
+    const res = await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const text = await res.text();
+    console.log(`[admissionLeads] Sheet webhook → ${res.status}: ${text}`);
+  } catch (err) {
+    // Non-critical — log but don't fail the request
+    console.error('[admissionLeads] Sheet webhook error:', err.message);
+  }
+};
+
+// ── Validation error handler ─────────────────────────────────────────────────
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -79,19 +98,10 @@ router.post(
   handleValidationErrors,
   async (req, res) => {
     try {
-      const {
-        studentName,
-        classApplying,
-        parentName,
-        mobile,
-        city,
-        state,
-        upiTransactionId,
-        source,
-      } = req.body;
+      const { studentName, classApplying, parentName, mobile, city, state, upiTransactionId, source } = req.body;
 
-      // Upload screenshot to Cloudinary (optional)
-      let paymentScreenshot = { url: '', publicId: '' };
+      // ── Upload screenshot to Cloudinary ──────────────────────────────────
+      let screenshotUrl = '';
       if (req.file) {
         const safeName = `${mobile}_${Date.now()}`;
         const result = await uploadToCloudinary(
@@ -100,13 +110,14 @@ router.post(
           safeName,
           req.file.mimetype
         );
-        paymentScreenshot = {
-          url: result.secure_url,
-          publicId: result.public_id,
-        };
+        screenshotUrl = result.secure_url;
       }
 
-      const lead = await AdmissionLead.create({
+      // ── Push to Google Sheet ──────────────────────────────────────────────
+      const submittedAt = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+      await sendToGoogleSheet({
+        submittedAt,
         studentName,
         classApplying,
         parentName,
@@ -114,152 +125,16 @@ router.post(
         city,
         state,
         upiTransactionId: upiTransactionId || '',
-        paymentScreenshot,
-        source: source || 'direct',
+        source: source || 'interest-form',
+        paymentScreenshotUrl: screenshotUrl,
       });
 
       res.status(201).json({
         message: 'Thank you! Your interest has been registered. We will contact you soon.',
-        leadId: lead._id,
       });
     } catch (err) {
       console.error('[POST /admission-leads]', err);
       res.status(500).json({ message: err.message || 'Server error' });
-    }
-  }
-);
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// ADMIN ROUTES (protected)
-// ═══════════════════════════════════════════════════════════════════════════════
-
-// GET /api/admission-leads/admin — paginated listing with search + filter
-router.get('/admin', protect, async (req, res) => {
-  try {
-    const page = Math.max(1, parseInt(req.query.page) || 1);
-    const limit = Math.min(50, parseInt(req.query.limit) || 15);
-    const skip = (page - 1) * limit;
-
-    const filter = {};
-
-    if (req.query.status) filter.status = req.query.status;
-
-    if (req.query.search) {
-      const s = req.query.search.trim();
-      filter.$or = [
-        { studentName: { $regex: s, $options: 'i' } },
-        { parentName: { $regex: s, $options: 'i' } },
-        { mobile: { $regex: s, $options: 'i' } },
-        { city: { $regex: s, $options: 'i' } },
-        { classApplying: { $regex: s, $options: 'i' } },
-      ];
-    }
-
-    if (req.query.classApplying) filter.classApplying = req.query.classApplying;
-
-    const [leads, total] = await Promise.all([
-      AdmissionLead.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
-      AdmissionLead.countDocuments(filter),
-    ]);
-
-    res.json({
-      leads,
-      pagination: {
-        total,
-        page,
-        limit,
-        pages: Math.ceil(total / limit),
-        hasNext: page < Math.ceil(total / limit),
-        hasPrev: page > 1,
-      },
-    });
-  } catch (err) {
-    console.error('[GET /admission-leads/admin]', err);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
-// GET /api/admission-leads/admin/stats — summary counts
-router.get('/admin/stats', protect, async (req, res) => {
-  try {
-    const [total, byStatus] = await Promise.all([
-      AdmissionLead.countDocuments(),
-      AdmissionLead.aggregate([
-        { $group: { _id: '$status', count: { $sum: 1 } } },
-      ]),
-    ]);
-
-    const stats = { total, new: 0, contacted: 0, enrolled: 0, 'not-interested': 0 };
-    byStatus.forEach(({ _id, count }) => {
-      if (_id in stats) stats[_id] = count;
-    });
-
-    res.json({ stats });
-  } catch (err) {
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
-// GET /api/admission-leads/admin/:id — single lead detail
-router.get(
-  '/admin/:id',
-  protect,
-  [param('id').isMongoId().withMessage('Invalid lead ID')],
-  handleValidationErrors,
-  async (req, res) => {
-    try {
-      const lead = await AdmissionLead.findById(req.params.id).lean();
-      if (!lead) return res.status(404).json({ message: 'Lead not found' });
-      res.json({ lead });
-    } catch (err) {
-      res.status(500).json({ message: 'Server error' });
-    }
-  }
-);
-
-// PATCH /api/admission-leads/admin/:id — update status / notes
-router.patch(
-  '/admin/:id',
-  protect,
-  [
-    param('id').isMongoId().withMessage('Invalid lead ID'),
-    body('status')
-      .optional()
-      .isIn(['new', 'contacted', 'enrolled', 'not-interested'])
-      .withMessage('Invalid status'),
-    body('adminNotes').optional().trim(),
-  ],
-  handleValidationErrors,
-  async (req, res) => {
-    try {
-      const lead = await AdmissionLead.findById(req.params.id);
-      if (!lead) return res.status(404).json({ message: 'Lead not found' });
-
-      if (req.body.status !== undefined) lead.status = req.body.status;
-      if (req.body.adminNotes !== undefined) lead.adminNotes = req.body.adminNotes;
-
-      await lead.save();
-      res.json({ lead });
-    } catch (err) {
-      res.status(500).json({ message: 'Server error' });
-    }
-  }
-);
-
-// DELETE /api/admission-leads/admin/:id — delete a lead
-router.delete(
-  '/admin/:id',
-  protect,
-  [param('id').isMongoId().withMessage('Invalid lead ID')],
-  handleValidationErrors,
-  async (req, res) => {
-    try {
-      const lead = await AdmissionLead.findById(req.params.id);
-      if (!lead) return res.status(404).json({ message: 'Lead not found' });
-      await lead.deleteOne();
-      res.json({ message: 'Lead deleted' });
-    } catch (err) {
-      res.status(500).json({ message: 'Server error' });
     }
   }
 );

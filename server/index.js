@@ -6,7 +6,7 @@ import { dirname, join } from 'path';
 import { connectDB } from './db.js';
 import authRoutes from './routes/auth.js';
 import blogRoutes from './routes/blogs.js';
-import admissionLeadsRoutes from './routes/admissionLeads.js';
+import admissionLeadsRoutes from './routes/admissionLeads.js'; // Google Sheet only — no MongoDB
 
 // Load .env from the project root (one level up from /server/)
 const __filename = fileURLToPath(import.meta.url);
